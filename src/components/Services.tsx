@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useRef } from "react";
 import DrillIcon from "./icons/DrillIcon";
 import AnchorIcon from "./icons/AnchorIcon";
 
@@ -93,8 +95,51 @@ function WorkersIcon({ className }: { className?: string }) {
 }
 
 export default function Services() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const wrapper = document.getElementById("scroll-wrapper");
+    const section = sectionRef.current;
+    if (!wrapper || !section) return;
+
+    const isMobile = () => window.innerWidth < 768;
+    let inView = false;
+
+    function clearActive() {
+      section!.querySelectorAll(".service-card").forEach(c => c.classList.remove("active"));
+    }
+
+    function updateActive() {
+      if (!isMobile() || !inView) return;
+      const cards = Array.from(section!.querySelectorAll<HTMLElement>(".service-card"));
+      const center = window.innerHeight / 2;
+      let best: HTMLElement | null = null;
+      let bestDist = Infinity;
+      cards.forEach(card => {
+        const r = card.getBoundingClientRect();
+        const dist = Math.abs(r.top + r.height / 2 - center);
+        if (dist < bestDist) { bestDist = dist; best = card; }
+      });
+      cards.forEach(c => c.classList.remove("active"));
+      if (best) (best as HTMLElement).classList.add("active");
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (!inView) clearActive(); else updateActive();
+    }, { threshold: 0.01 });
+
+    observer.observe(section);
+    wrapper.addEventListener("scroll", updateActive, { passive: true });
+
+    return () => {
+      wrapper.removeEventListener("scroll", updateActive);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <section id="servicios" className="services-section bg-dark text-light">
+    <section id="servicios" className="services-section bg-dark text-light" ref={sectionRef}>
       <div className="container">
         <div className="services-header">
           <div>
