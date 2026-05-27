@@ -55,8 +55,9 @@ export default function Portfolio() {
   }
 
   function handleImageTap(e: React.TouchEvent<HTMLImageElement>) {
+    e.preventDefault(); // blocks the synthetic click that fires after touchend
     e.stopPropagation();
-    if (e.touches.length > 1) return;
+    if (e.changedTouches.length !== 1) return;
     const t = e.changedTouches[0];
     toggleZoom(t.clientX, t.clientY, e.currentTarget.getBoundingClientRect());
   }
@@ -119,8 +120,10 @@ export default function Portfolio() {
   function handleTouchEnd(e: React.TouchEvent) {
     if (zoomed) return;
     const t = e.changedTouches[0];
+    const dx = Math.abs(t.clientX - touchRef.current.startX);
     const dy = t.clientY - touchRef.current.startY;
-    if (Math.abs(dy) > 80) closeModal();
+    if (dx > 10) return; // horizontal swipe — ignore
+    if (dy > 80) closeModal();
   }
 
   return (
