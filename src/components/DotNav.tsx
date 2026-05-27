@@ -3,9 +3,9 @@
 const sections = [
   { id: "inicio", label: "Inicio" },
   { id: "servicios", label: "Servicios" },
-  { id: "contacto", label: "Contacto" },
   { id: "proyectos", label: "Proyectos" },
   { id: "nosotros", label: "Nosotros" },
+  { id: "contacto", label: "Contacto" },
   { id: "faq", label: "FAQ" },
 ];
 

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-const SECTIONS = ["inicio", "servicios", "contacto", "proyectos", "nosotros", "faq"];
+const SECTIONS = ["inicio", "servicios", "proyectos", "nosotros", "contacto", "faq"];
 
 export function useScrollBehavior() {
   useEffect(() => {
