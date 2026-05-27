@@ -1091,6 +1091,7 @@ img {
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  touch-action: none;
 }
 
 #modal-image {

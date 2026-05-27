@@ -30,6 +30,7 @@ export default function Portfolio() {
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef({ startX: 0, startY: 0, startTx: 0, startTy: 0, moved: false });
+  const touchRef = useRef({ startX: 0, startY: 0, startTx: 0, startTy: 0 });
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -50,16 +51,24 @@ export default function Portfolio() {
   function handleImageClick(e: React.MouseEvent<HTMLImageElement>) {
     e.stopPropagation();
     if (dragRef.current.moved) return;
+    toggleZoom(e.clientX, e.clientY, e.currentTarget.getBoundingClientRect());
+  }
 
+  function handleImageTap(e: React.TouchEvent<HTMLImageElement>) {
+    e.stopPropagation();
+    if (e.touches.length > 1) return;
+    const t = e.changedTouches[0];
+    toggleZoom(t.clientX, t.clientY, e.currentTarget.getBoundingClientRect());
+  }
+
+  function toggleZoom(clientX: number, clientY: number, rect: DOMRect) {
     if (zoomed) {
       setZoomed(false);
       setTranslate({ x: 0, y: 0 });
       return;
     }
-
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ox = ((e.clientX - rect.left) / rect.width) * 100;
-    const oy = ((e.clientY - rect.top) / rect.height) * 100;
+    const ox = ((clientX - rect.left) / rect.width) * 100;
+    const oy = ((clientY - rect.top) / rect.height) * 100;
     setOrigin({ x: ox, y: oy });
     setTranslate({ x: 0, y: 0 });
     setZoomed(true);
@@ -91,6 +100,27 @@ export default function Portfolio() {
 
   function handleMouseUp() {
     setIsDragging(false);
+  }
+
+  function handleTouchStart(e: React.TouchEvent) {
+    const t = e.touches[0];
+    touchRef.current = { startX: t.clientX, startY: t.clientY, startTx: translate.x, startTy: translate.y };
+  }
+
+  function handleTouchMove(e: React.TouchEvent) {
+    if (!zoomed) return;
+    e.stopPropagation();
+    const t = e.touches[0];
+    const dx = t.clientX - touchRef.current.startX;
+    const dy = t.clientY - touchRef.current.startY;
+    setTranslate({ x: touchRef.current.startTx + dx / SCALE, y: touchRef.current.startTy + dy / SCALE });
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (zoomed) return;
+    const t = e.changedTouches[0];
+    const dy = t.clientY - touchRef.current.startY;
+    if (Math.abs(dy) > 80) closeModal();
   }
 
   return (
@@ -144,6 +174,9 @@ export default function Portfolio() {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             <img
               src={modalSrc}
@@ -151,6 +184,7 @@ export default function Portfolio() {
               id="modal-image"
               className={zoomed ? "zoomed" : ""}
               onClick={handleImageClick}
+              onTouchEnd={handleImageTap}
               onMouseDown={handleMouseDown}
               style={{
                 transformOrigin: `${origin.x}% ${origin.y}%`,
