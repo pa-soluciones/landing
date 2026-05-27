@@ -559,6 +559,10 @@ img {
   justify-content: center;
 }
 
+@media (min-width: 768px) {
+  .services-section { padding-top: 6rem; }
+}
+
 .services-header {
   display: flex;
   flex-direction: column;
