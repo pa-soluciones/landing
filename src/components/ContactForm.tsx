@@ -1,6 +1,6 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
-import { Mail, Smartphone, MapPin } from "lucide-react";
+import { Mail, Smartphone, MapPin, Copy, Check } from "lucide-react";
 
 const WHATSAPP_NUMBER = "5491130144852";
 
@@ -17,6 +17,14 @@ export default function ContactForm() {
   const [nombre, setNombre] = useState("");
   const [servicio, setServicio] = useState("");
   const [consulta, setConsulta] = useState("");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  function copyToClipboard(id: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    });
+  }
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -37,33 +45,54 @@ export default function ContactForm() {
             nuestro equipo se comunicará por WhatsApp a la brevedad.
           </p>
           <div className="contact-details">
-            <div className="contact-item">
+            <button
+              className="contact-item"
+              onClick={() => copyToClipboard("email", "ventas@pasoluciones.com.ar")}
+              aria-label="Copiar email"
+            >
               <div className="icon-bubble">
                 <Mail color="var(--primary)" size={20} />
               </div>
-              <div>
+              <div className="contact-item-text">
                 <span className="label">Email</span>
                 <span className="value">ventas@pasoluciones.com.ar</span>
               </div>
-            </div>
-            <div className="contact-item">
+              <span className={`copy-indicator${copiedId === "email" ? " copied" : ""}`}>
+                {copiedId === "email" ? <Check size={15} /> : <Copy size={15} />}
+              </span>
+            </button>
+            <button
+              className="contact-item"
+              onClick={() => copyToClipboard("phone", "+54 9 11 3014-4852")}
+              aria-label="Copiar teléfono"
+            >
               <div className="icon-bubble">
                 <Smartphone color="var(--primary)" size={20} />
               </div>
-              <div>
+              <div className="contact-item-text">
                 <span className="label">Teléfono / WhatsApp</span>
-                <a href="tel:+5491130144852" className="value">+54 9 11 3014-4852</a>
+                <span className="value">+54 9 11 3014-4852</span>
               </div>
-            </div>
-            <div className="contact-item">
+              <span className={`copy-indicator${copiedId === "phone" ? " copied" : ""}`}>
+                {copiedId === "phone" ? <Check size={15} /> : <Copy size={15} />}
+              </span>
+            </button>
+            <button
+              className="contact-item"
+              onClick={() => copyToClipboard("location", "Provincia de Buenos Aires y CABA")}
+              aria-label="Copiar ubicación"
+            >
               <div className="icon-bubble">
                 <MapPin color="var(--primary)" size={20} />
               </div>
-              <div>
+              <div className="contact-item-text">
                 <span className="label">Ubicación principal</span>
                 <span className="value">Provincia de Buenos Aires y CABA</span>
               </div>
-            </div>
+              <span className={`copy-indicator${copiedId === "location" ? " copied" : ""}`}>
+                {copiedId === "location" ? <Check size={15} /> : <Copy size={15} />}
+              </span>
+            </button>
           </div>
         </div>
 
