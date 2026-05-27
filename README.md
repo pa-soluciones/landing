@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PAS — Piedra Angular Solutions
 
-## Getting Started
+Landing page institucional para **PAS Piedra Angular Solutions**, empresa especializada en perforaciones en hormigón armado, sellado de juntas y anclajes en Buenos Aires, Argentina.
 
-First, run the development server:
+- **Sitio**: [pasoluciones.com.ar](https://pasoluciones.com.ar)
+- **Repo**: [github.com/pa-soluciones/landing](https://github.com/pa-soluciones/landing)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+- Next.js 16 (App Router) · React 19 · TypeScript
+- CSS puro con design tokens (sin Tailwind, sin CSS Modules)
+- Fuentes self-hosted: Poppins + Outfit (woff2 en `/public/fonts/`)
+- embla-carousel-react · lucide-react
+
+## Estructura
+
+```
+src/
+  app/
+    layout.tsx        # metadata, OG, GTM, schema.org, fuentes
+    page.tsx          # página principal (SSR)
+    globals.css       # design system completo (tokens, utils, animaciones)
+    robots.ts         # robots.txt dinámico
+    sitemap.ts        # sitemap.xml dinámico
+  components/
+    Header.tsx        # nav con scroll behavior
+    Hero.tsx          # sección hero con carousel (embla)
+    About.tsx
+    Services.tsx
+    Portfolio.tsx     # galería de trabajos
+    FAQ.tsx           # acordeón con FAQ schema
+    Footer.tsx
+    ContactForm.tsx
+    DotNav.tsx        # navegación por puntos (secciones)
+    ClientInit.tsx    # init lado cliente
+    icons/            # íconos SVG custom
+  hooks/
+    useReveal.ts      # IntersectionObserver para animaciones de entrada
+    useScrollBehavior.ts
+  lib/
+    fonts.ts          # configuración next/font/local
+    faqData.ts        # datos FAQ
+    schema.ts         # schema.org: LocalBusiness, Organization, FAQPage
+public/
+  fonts/              # woff2 self-hosted
+  ico/                # favicon set completo + webmanifest
+  services/           # íconos SVG de servicios
+  work-images/        # fotos de trabajos (webp)
+  logo.svg / logo-alt.svg / opengraph.png / animated-logo.webm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dev
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev       # http://localhost:3000
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Analytics
 
-## Learn More
+- GTM: `GTM-PBZCGJDV`
+- Hotjar/ContentSquare: cargado en `lazyOnload`
 
-To learn more about Next.js, take a look at the following resources:
+## SEO
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- schema.org `LocalBusiness` + `Organization` + `FAQPage` inyectados en `<head>`
+- OG image: `/public/opengraph.png` (1200×630)
+- Canonical: `https://pasoluciones.com.ar`
+- Lang: `es-AR`
