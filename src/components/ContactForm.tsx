@@ -52,7 +52,7 @@ export default function ContactForm() {
               </div>
               <div>
                 <span className="label">Teléfono / WhatsApp</span>
-                <span className="value">+54 9 11 3014-4852</span>
+                <a href="tel:+5491130144852" className="value">+54 9 11 3014-4852</a>
               </div>
             </div>
             <div className="contact-item">
