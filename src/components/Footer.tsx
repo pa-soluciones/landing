@@ -20,7 +20,7 @@ export default function Footer() {
         <a
           href="https://nosterlabs.com"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
           className="powered-by-link"
         >
           <span className="powered-by-text">Powered by NosterLabs</span>
