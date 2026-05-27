@@ -518,6 +518,16 @@ img {
   margin-bottom: 1rem;
 }
 
+.about-slogan {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-light);
+  letter-spacing: 0.03em;
+  margin-bottom: 1.5rem;
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

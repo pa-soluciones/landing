@@ -35,6 +35,9 @@ export default function About() {
         <div className="about-content">
           <span className="section-top-title fade-up animate-on-scroll">Trayectoria y Solidez</span>
           <h2 className="section-title fade-up animate-on-scroll delay-100">Nosotros</h2>
+          <p className="about-slogan fade-up animate-on-scroll delay-150">
+            Soluciones que <span className="text-primary">sostienen</span> estructuras
+          </p>
           <p className="fade-up animate-on-scroll delay-200">
             En PAS (Piedra Angular Solutions) nos dedicamos a brindar soporte estructural de alta
             calidad, garantizando la solidez de cada proyecto mediante técnicas avanzadas y
