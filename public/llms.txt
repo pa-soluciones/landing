@@ -1,11 +1,11 @@
 # PAS Piedra Angular Solutions
 
 > Empresa especializada en perforaciones, cortes y anclajes en hormigón armado.
-> Operamos en Buenos Aires y CABA mediante tecnología diamantada refrigerada por agua. Fundada en 2018.
+> Operamos en Buenos Aires y CABA mediante tecnología diamantada refrigerada por agua. Fundada en 2026.
 
 ## Servicios
 
-- Perforaciones en Hormigón Armado: pases para ductos, refuerzos estructurales, diámetros estándar y especiales. Una perforación de 4" a 20 cm tarda entre 15 y 40 minutos.
+- Perforaciones en Hormigón Armado: pases para ductos, refuerzos estructurales, diámetros estándar y especiales.
 - Sellado Técnico de Juntas de Dilatación: tratamiento elástico para absorber movimientos termo-mecánicos y prevenir filtraciones y desgranamiento.
 - Bocas de Ataque: servicio integral (perforación + recuadro + ladrillos) según reglamentación del Código de Edificación GCBA.
 - Anclajes Químicos y Mecánicos: instalaciones de precisión garantizando estabilidad y durabilidad estructural.
@@ -23,4 +23,4 @@ Ciudad Autónoma de Buenos Aires (CABA), Gran Buenos Aires, Zona Norte, Zona Sur
 
 ## Acerca de
 
-Fundada: 2018. Tecnología: diamantada refrigerada por agua — cortes limpios sin vibración excesiva. Obras residenciales, comerciales e industriales en CABA y GBA.
+Fundada: 2026. Tecnología: diamantada refrigerada por agua — cortes limpios sin vibración excesiva. Obras residenciales, comerciales e industriales en CABA y GBA.
