@@ -10,6 +10,11 @@ export const faqData = [
       "Depende del diámetro y profundidad. Una perforación estándar de 4\" a 20 cm de profundidad tarda entre 15 y 40 minutos. Para diámetros mayores o materiales más densos, coordinamos tiempos en la cotización.",
   },
   {
+    question: "¿Hacen visitas tecnicas antes de realizar el trabajo?",
+    answer:
+      "Si, previo a la realización del trabajo nos ponemos en contacto con vos para coordinar una visita técnica totalmente gratuita, y así conocer los detalles del trabajo a realizar y poder brindarte la mejor solución.",
+  },
+  {
     question: "¿Qué tecnología utilizan para perforar?",
     answer:
       "Usamos tecnología diamantada refrigerada por agua, que garantiza cortes limpios, sin vibración excesiva y sin dañar las armaduras ni la estructura circundante. Es el método más preciso y seguro del mercado.",

@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 /.claude
+
+ACTION-PLAN.md
+FULL-AUDIT-REPORT.md

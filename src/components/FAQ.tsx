@@ -16,7 +16,7 @@ export default function FAQ() {
     <section className="faq-section">
       <div className="container text-center">
         <span className="section-top-title fade-up animate-on-scroll">Preguntas Frecuentes</span>
-        <h2 className="section-title fade-up animate-on-scroll delay-100">Preguntas frecuentes sobre perforaciones en hormigón armado</h2>
+        <h2 className="section-title fade-up animate-on-scroll delay-100">Respondemos tus preguntas</h2>
         <div className="faq-list">
           {faqs.map((faq, i) => (
             <div key={i} className={`faq-item${openIndex === i ? " open" : ""}`}>
