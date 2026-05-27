@@ -29,4 +29,9 @@ export const faqData = [
     answer:
       "Es el tratamiento de las juntas estructurales que separan losas o paredes para absorber los movimientos termo-mecánicos del edificio. Un sellado correcto evita filtraciones y el desgranamiento del hormigón en los bordes.",
   },
+  {
+    question: "¿Qué son las bocas de ataque y qué reglamentación las rige en CABA?",
+    answer:
+      "Las bocas de ataque son aberturas normalizadas en muros o losas que permiten el acceso de mangueras para combate de incendios, exigidas por el Código de Edificación de la Ciudad Autónoma de Buenos Aires. El servicio integral incluye perforación precisa, ejecución del recuadro y colocación de ladrillos de acuerdo con las dimensiones reglamentarias, garantizando el cumplimiento ante inspecciones del GCBA.",
+  },
 ];
