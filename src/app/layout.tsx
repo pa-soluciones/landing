@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { poppins, outfit } from "@/lib/fonts";
 import "./globals.css";
-import { localBusinessSchema, organizationSchema } from "@/lib/schema";
+import { localBusinessSchema, organizationSchema, webSiteSchema } from "@/lib/schema";
 import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pasoluciones.com.ar"),
   title: {
-    default: "PAS Piedra Angular Solutions | Perforaciones en Hormigón Armado",
+    default: "Perforaciones en Hormigón Armado Buenos Aires | PAS Piedra Angular Solutions",
     template: "%s | PAS Piedra Angular Solutions",
   },
   description:
-    "PAS (Piedra Angular Solutions) ofrece servicios profesionales de perforaciones en hormigón armado, sellado de juntas, y anclajes químicos/mecánicos en Buenos Aires y CABA.",
+    "Especialistas en perforaciones y cortes de hormigón armado en Buenos Aires y CABA. Tecnología diamantada refrigerada por agua. Anclajes, bocas de ataque y sellado de juntas. Cotizamos sin cargo en 24hs.",
   keywords: [
     "Perforaciones en hormigón armado",
     "sellado de juntas",
@@ -90,6 +90,7 @@ export default function RootLayout({
           strategy="lazyOnload"
           src="https://t.contentsquare.net/uxa/016fd7df4d13e.js"
         />
+        <link rel="preload" as="image" href="/hero-bg.webp" fetchPriority="high" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -100,6 +101,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webSiteSchema()),
           }}
         />
       </head>
