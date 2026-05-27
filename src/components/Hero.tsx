@@ -22,11 +22,11 @@ export default function Hero() {
         </div>
 
         <h1 className="hero-title">
-          Soluciones que <span className="text-primary">sostienen</span> estructuras
+          Perforaciones en <span className="text-primary">Hormigón Armado</span> — Buenos Aires
         </h1>
         <p className="hero-subtitle">
           Especialistas en cortes y perforaciones de hormigón armado mediante tecnología diamantada
-          refrigerada por agua.
+          refrigerada por agua. Servicio en CABA y Gran Buenos Aires.
         </p>
 
         <div className="hero-buttons">
