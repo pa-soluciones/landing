@@ -44,7 +44,7 @@ export function useScrollBehavior() {
       if (!sectionEl) return;
 
       isScrolling = true;
-      wrapper.scrollTo({ top: sectionEl.offsetTop, behavior: "smooth" });
+      wrapper!.scrollTo({ top: sectionEl.offsetTop, behavior: "smooth" });
       currentSection = idx;
 
       const dots = getDots();
@@ -71,7 +71,7 @@ export function useScrollBehavior() {
       if (isMobile()) {
         // Mobile: manual scroll inside the overflow-y: auto wrapper
         const sectionEl = document.getElementById(sectionId);
-        if (sectionEl) wrapper.scrollTo({ top: sectionEl.offsetTop, behavior: "smooth" });
+        if (sectionEl) wrapper!.scrollTo({ top: sectionEl.offsetTop, behavior: "smooth" });
         return;
       }
       scrollToSection(idx);
