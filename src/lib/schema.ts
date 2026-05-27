@@ -1,7 +1,7 @@
 export function localBusinessSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
     "@id": "https://pasoluciones.com.ar/#business",
     name: "PAS Piedra Angular Solutions",
     alternateName: "PAS",
@@ -11,7 +11,13 @@ export function localBusinessSchema() {
     telephone: "+5491130144852",
     email: "ventas@pasoluciones.com.ar",
     image: "https://pasoluciones.com.ar/opengraph.png",
-    logo: "https://pasoluciones.com.ar/logo.svg",
+    logo: {
+      "@type": "ImageObject",
+      "@id": "https://pasoluciones.com.ar/#logo",
+      url: "https://pasoluciones.com.ar/logo.svg",
+      width: 200,
+      height: 60,
+    },
     priceRange: "$$",
     currenciesAccepted: "ARS",
     paymentAccepted: "Efectivo, Transferencia bancaria",
@@ -23,16 +29,20 @@ export function localBusinessSchema() {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: -34.6037,
-      longitude: -58.3816,
+      latitude: -34.60376,
+      longitude: -58.38162,
     },
     areaServed: [
-      { "@type": "City", name: "Buenos Aires" },
-      { "@type": "City", name: "Ciudad Autónoma de Buenos Aires" },
-      { "@type": "AdministrativeArea", name: "Gran Buenos Aires" },
-      { "@type": "AdministrativeArea", name: "Zona Norte Buenos Aires" },
-      { "@type": "AdministrativeArea", name: "Zona Sur Buenos Aires" },
-      { "@type": "AdministrativeArea", name: "Zona Oeste Buenos Aires" },
+      {
+        "@type": "City",
+        name: "Ciudad Autónoma de Buenos Aires",
+        sameAs: "https://www.wikidata.org/wiki/Q1486",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Gran Buenos Aires",
+        sameAs: "https://www.wikidata.org/wiki/Q112643",
+      },
     ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -42,52 +52,61 @@ export function localBusinessSchema() {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
+            "@id": "https://pasoluciones.com.ar/#service-perforaciones",
             name: "Perforaciones en Hormigón Armado",
             description:
-              "Perforaciones de precisión para ductos, pases y refuerzos estructurales con tecnología diamantada.",
+              "Perforaciones de precisión para ductos, pases y refuerzos estructurales con tecnología diamantada refrigerada por agua. Una perforación estándar de 4\" a 20 cm tarda entre 15 y 40 minutos.",
+            provider: { "@id": "https://pasoluciones.com.ar/#business" },
           },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
+            "@id": "https://pasoluciones.com.ar/#service-juntas",
             name: "Sellado Técnico de Juntas de Dilatación",
             description:
-              "Tratamiento elástico para absorber movimientos termo-mecánicos y evitar desgranamiento.",
+              "Tratamiento elástico para absorber movimientos termo-mecánicos y evitar desgranamiento y filtraciones.",
+            provider: { "@id": "https://pasoluciones.com.ar/#business" },
           },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
+            "@id": "https://pasoluciones.com.ar/#service-bocas",
             name: "Bocas de Ataque",
             description:
-              "Perforación precisa, ejecución de recuadro y colocación de ladrillos para cumplir exigencias reglamentarias.",
+              "Servicio integral: perforación precisa, ejecución de recuadro y colocación de ladrillos según exigencias reglamentarias del Código de Edificación GCBA.",
+            provider: { "@id": "https://pasoluciones.com.ar/#business" },
           },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
+            "@id": "https://pasoluciones.com.ar/#service-anclajes",
             name: "Anclajes Químicos y Mecánicos",
             description:
               "Instalaciones precisas de anclajes garantizando máxima estabilidad y durabilidad estructural.",
+            provider: { "@id": "https://pasoluciones.com.ar/#business" },
           },
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
+            "@id": "https://pasoluciones.com.ar/#service-operacion",
             name: "Operación Técnica y Mano de Obra",
             description:
-              "Operadores calificados para proyectos con maquinaria propia del cliente.",
+              "Operadores calificados para proyectos con maquinaria propia del cliente. Adaptación a cronogramas de obra.",
+            provider: { "@id": "https://pasoluciones.com.ar/#business" },
           },
         },
       ],
     },
     foundingDate: "2018",
-    numberOfEmployees: { "@type": "QuantitativeValue", value: 10 },
-    sameAs: ["https://pasoluciones.com.ar"],
+    sameAs: [],
   };
 }
 
@@ -95,6 +114,9 @@ export function faqSchema(faqs: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": "https://pasoluciones.com.ar/#faq",
+    url: "https://pasoluciones.com.ar/#faq",
+    isPartOf: { "@id": "https://pasoluciones.com.ar/#website" },
     mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
@@ -115,6 +137,7 @@ export function organizationSchema() {
     url: "https://pasoluciones.com.ar",
     logo: {
       "@type": "ImageObject",
+      "@id": "https://pasoluciones.com.ar/#logo",
       url: "https://pasoluciones.com.ar/logo.svg",
       width: 200,
       height: 60,
@@ -123,7 +146,21 @@ export function organizationSchema() {
       "@type": "ContactPoint",
       telephone: "+5491130144852",
       contactType: "customer service",
-      availableLanguage: "Spanish",
+      availableLanguage: { "@type": "Language", name: "Spanish" },
+      areaServed: "AR",
     },
+    sameAs: [],
+  };
+}
+
+export function webSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://pasoluciones.com.ar/#website",
+    name: "PAS Piedra Angular Solutions",
+    url: "https://pasoluciones.com.ar",
+    inLanguage: "es-AR",
+    publisher: { "@id": "https://pasoluciones.com.ar/#organization" },
   };
 }
