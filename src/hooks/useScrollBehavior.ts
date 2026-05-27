@@ -105,7 +105,19 @@ export function useScrollBehavior() {
       else if (diff < 0 && currentSection > 0) scrollToSection(currentSection - 1);
     }
 
+    function onKeyDown(e: KeyboardEvent) {
+      if (isMobile()) return;
+      if (isScrolling) return;
+      if ((e.target as HTMLElement).closest("input, textarea, select")) return;
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        if (currentSection < SECTIONS.length - 1) { e.preventDefault(); scrollToSection(currentSection + 1); }
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        if (currentSection > 0) { e.preventDefault(); scrollToSection(currentSection - 1); }
+      }
+    }
+
     document.addEventListener("click", handleAnchorClick);
+    document.addEventListener("keydown", onKeyDown);
     wrapper.addEventListener("wheel", onWheel, { passive: false });
     wrapper.addEventListener("touchstart", onTouchStart, { passive: true });
     wrapper.addEventListener("touchend", onTouchEnd, { passive: true });
@@ -115,6 +127,7 @@ export function useScrollBehavior() {
 
     return () => {
       document.removeEventListener("click", handleAnchorClick);
+      document.removeEventListener("keydown", onKeyDown);
       wrapper.removeEventListener("wheel", onWheel);
       wrapper.removeEventListener("touchstart", onTouchStart);
       wrapper.removeEventListener("touchend", onTouchEnd);
