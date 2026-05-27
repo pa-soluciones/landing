@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer bg-dark text-light">
       <div className="container text-center">
-        <div className="footer-logo">
+        <a href="#inicio" className="footer-logo" aria-label="Ir al inicio">
           <Image
             src="/logo-alt.svg"
             alt="PAS Piedra Angular Solutions"
@@ -13,7 +13,7 @@ export default function Footer() {
             height={60}
             loading="lazy"
           />
-        </div>
+        </a>
         <p className="copyright">
           © {new Date().getFullYear()} PAS Piedra Angular Solutions. Todos los derechos reservados.
         </p>

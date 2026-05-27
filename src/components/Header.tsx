@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header id="main-header">
       <nav className="container">
-        <div className="logo-container" id="nav-logo-container">
+        <a href="#inicio" className="logo-container" id="nav-logo-container" aria-label="Ir al inicio">
           <Image
             src="/logo.svg"
             alt="PAS Piedra Angular Solutions"
@@ -13,7 +13,7 @@ export default function Header() {
             height={40}
             priority
           />
-        </div>
+        </a>
         <div className="nav-links">
           <a href="#inicio">Inicio</a>
           <a href="#servicios">Servicios</a>
