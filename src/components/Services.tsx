@@ -129,11 +129,22 @@ export default function Services() {
       if (!inView) clearActive(); else updateActive();
     }, { threshold: 0.01 });
 
+    function handleCardClick(e: MouseEvent) {
+      if (!isMobile()) return;
+      const card = (e.target as HTMLElement).closest<HTMLElement>(".service-card");
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      const target = wrapper!.scrollTop + rect.top + rect.height / 2 - window.innerHeight / 2;
+      wrapper!.scrollTo({ top: target, behavior: "smooth" });
+    }
+
     observer.observe(section);
     wrapper.addEventListener("scroll", updateActive, { passive: true });
+    section.addEventListener("click", handleCardClick);
 
     return () => {
       wrapper.removeEventListener("scroll", updateActive);
+      section.removeEventListener("click", handleCardClick);
       observer.disconnect();
     };
   }, []);
