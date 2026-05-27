@@ -23,10 +23,9 @@ export default function Home() {
       <div id="scroll-wrapper">
         <Hero />
         <Services />
-        <ContactForm />
         <Portfolio />
         <About />
-        {/* FAQ + Footer wrapped in a single scroll section */}
+        <ContactForm />
         <section id="faq" className="faq-footer-section">
           <FAQ />
           <Footer />
