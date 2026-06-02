@@ -116,17 +116,6 @@ export function useScrollBehavior() {
       }
     }
 
-    // Mobile: show header once hero leaves viewport
-    const heroEl = document.getElementById("inicio");
-    const heroObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (!isMobile()) return;
-        if (header) header.classList.toggle("visible", !entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-    if (heroEl) heroObserver.observe(heroEl);
-
     document.addEventListener("click", handleAnchorClick);
     document.addEventListener("keydown", onKeyDown);
     wrapper.addEventListener("wheel", onWheel, { passive: false });
@@ -137,7 +126,6 @@ export function useScrollBehavior() {
     const initTimer = setTimeout(() => updateDotIndicator(0), 100);
 
     return () => {
-      heroObserver.disconnect();
       document.removeEventListener("click", handleAnchorClick);
       document.removeEventListener("keydown", onKeyDown);
       wrapper.removeEventListener("wheel", onWheel);
