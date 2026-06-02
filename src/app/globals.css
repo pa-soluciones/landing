@@ -290,6 +290,12 @@ img {
   transform: translateY(0);
 }
 
+@media (max-width: 767px) {
+  #main-header {
+    transform: translateY(0);
+  }
+}
+
 #main-header .container {
   height: 100%;
   display: flex;
