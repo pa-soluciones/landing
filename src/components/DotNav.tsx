@@ -4,9 +4,11 @@ const sections = [
   { id: "inicio", label: "Inicio" },
   { id: "servicios", label: "Servicios" },
   { id: "proyectos", label: "Proyectos" },
+  { id: "clientes", label: "Clientes" },
   { id: "nosotros", label: "Nosotros" },
   { id: "contacto", label: "Contacto" },
   { id: "faq", label: "FAQ" },
+  { id: "cierre", label: "PAS" },
 ];
 
 export default function DotNav() {

@@ -5,14 +5,19 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useCallback, useRef } from "react";
 
 const images = [
-  { src: "/work-images/perforacion.webp", alt: "Perforación de hormigón armado en obra" },
   { src: "/work-images/perforaciones-anclajes-mecanicos.webp", alt: "Obra de anclajes mecánicos" },
-  { src: "/work-images/perforacion-2-metros.webp", alt: "Perforación de gran profundidad" },
   { src: "/work-images/junta-de-dilatacion-2.webp", alt: "Sellado de junta de dilatación" },
   { src: "/work-images/abertura-junta.webp", alt: "Apertura de junta estructural" },
+  { src: "/work-images/abertura-junta-2.webp", alt: "Apertura de junta estructural" },
   { src: "/work-images/corte-disco-diamantado.webp", alt: "Corte con disco diamantado" },
   { src: "/work-images/plenos.webp", alt: "Perforaciones para plenos técnicos" },
-  { src: "/work-images/perforacion-3.webp", alt: "Perforación estructural" },
+  { src: "/work-images/herramientas.webp", alt: "Herramientas" },
+  { src: "/work-images/perforacion1.webp", alt: "Perforación en Hormigon Armado" },
+  { src: "/work-images/perforacion2.webp", alt: "Perforación en Hormigon Armado" },
+  { src: "/work-images/perforacion3.webp", alt: "Perforación en Hormigon Armado" },
+  { src: "/work-images/perforacion4.webp", alt: "Perforación en Hormigon Armado" },
+  { src: "/work-images/perforacion5.webp", alt: "Perforación en Hormigon Armado" },
+  { src: "/work-images/perforaciones.webp", alt: "Perforaciones en Hormigon Armado" },
 ];
 
 const SCALE = 2.5;
