@@ -12,11 +12,11 @@ const images = [
   { src: "/work-images/corte-disco-diamantado.webp", alt: "Corte con disco diamantado" },
   { src: "/work-images/plenos.webp", alt: "Perforaciones para plenos técnicos" },
   { src: "/work-images/herramientas.webp", alt: "Herramientas" },
+  { src: "/work-images/perforacion1.webp", alt: "Perforación en Hormigon Armado" },
   { src: "/work-images/perforacion2.webp", alt: "Perforación en Hormigon Armado" },
   { src: "/work-images/perforacion3.webp", alt: "Perforación en Hormigon Armado" },
   { src: "/work-images/perforacion4.webp", alt: "Perforación en Hormigon Armado" },
   { src: "/work-images/perforacion5.webp", alt: "Perforación en Hormigon Armado" },
-  { src: "/work-images/perforacion.webp", alt: "Perforación en Hormigon Armado" },
   { src: "/work-images/perforaciones.webp", alt: "Perforaciones en Hormigon Armado" },
 ];
 
