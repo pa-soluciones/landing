@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-const SECTIONS = ["inicio", "servicios", "proyectos", "nosotros", "contacto", "faq"];
+const SECTIONS = ["inicio", "servicios", "proyectos", "clientes", "nosotros", "contacto", "faq", "cierre"];
 
 export function useScrollBehavior() {
   useEffect(() => {
@@ -33,7 +33,7 @@ export function useScrollBehavior() {
 
     function updateDotMode(sectionId: string) {
       if (!dotNav) return;
-      const lightSections = ["nosotros", "contacto", "faq"];
+      const lightSections = ["clientes", "nosotros", "contacto", "faq"];
       dotNav.classList.toggle("light-mode", lightSections.includes(sectionId));
     }
 
@@ -83,6 +83,13 @@ export function useScrollBehavior() {
       // Don't intercept wheel inside the carousel
       const carousel = (e.target as HTMLElement).closest(".carousel-track-container");
       if (carousel) return;
+      // On short viewports the FAQ list scrolls internally; only take over at its edges
+      const faq = (e.target as HTMLElement).closest<HTMLElement>(".faq-section");
+      if (faq && faq.scrollHeight > faq.clientHeight) {
+        const atTop = faq.scrollTop <= 0;
+        const atBottom = Math.ceil(faq.scrollTop + faq.clientHeight) >= faq.scrollHeight;
+        if (!(atTop && e.deltaY < 0) && !(atBottom && e.deltaY > 0)) return;
+      }
       e.preventDefault();
       if (isScrolling) return;
       if (e.deltaY > 0 && currentSection < SECTIONS.length - 1) {
