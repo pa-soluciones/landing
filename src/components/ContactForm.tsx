@@ -15,6 +15,7 @@ const SERVICIOS = [
 
 export default function ContactForm() {
   const [nombre, setNombre] = useState("");
+  const [empresa, setEmpresa] = useState("");
   const [servicio, setServicio] = useState("");
   const [consulta, setConsulta] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -29,7 +30,8 @@ export default function ContactForm() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const greeting = `¡Hola! Mi nombre es ${nombre}.`;
-    const body = `*Servicio de interés:* ${servicio}\n*Consulta:* ${consulta}`;
+    const empresaLine = empresa.trim() ? `*Empresa:* ${empresa.trim()}\n` : "";
+    const body = `${empresaLine}*Servicio de interés:* ${servicio}\n*Consulta:* ${consulta}`;
     const message = encodeURIComponent(`${greeting}\n${body}`);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
   }
@@ -112,6 +114,23 @@ export default function ContactForm() {
               />
               <div className="char-counter">
                 <span>{nombre.length}</span>/50
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="empresa">
+                Empresa <span className="label-optional">(opcional)</span>
+              </label>
+              <input
+                type="text"
+                id="empresa"
+                name="empresa"
+                placeholder="Ej: Constructora del Plata S.A."
+                maxLength={70}
+                value={empresa}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmpresa(e.target.value)}
+              />
+              <div className="char-counter">
+                <span>{empresa.length}</span>/70
               </div>
             </div>
             <div className="form-group">

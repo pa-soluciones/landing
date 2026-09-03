@@ -4,7 +4,8 @@ export function localBusinessSchema() {
     "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
     "@id": "https://pasoluciones.com.ar/#business",
     name: "PAS Piedra Angular Solutions",
-    alternateName: "PAS",
+    alternateName: ["PAS", "Piedra Angular Solutions", "Piedra Angular Soluciones"],
+    legalName: "MENA BRACA, LUIS DANIEL",
     description:
       "Especialistas en perforaciones, cortes y anclajes en hormigón armado en Buenos Aires y CABA. Tecnología diamantada refrigerada por agua.",
     url: "https://pasoluciones.com.ar",
@@ -134,6 +135,8 @@ export function organizationSchema() {
     "@type": "Organization",
     "@id": "https://pasoluciones.com.ar/#organization",
     name: "PAS Piedra Angular Solutions",
+    alternateName: ["PAS", "Piedra Angular Solutions", "Piedra Angular Soluciones"],
+    legalName: "MENA BRACA, LUIS DANIEL",
     url: "https://pasoluciones.com.ar",
     logo: {
       "@type": "ImageObject",
