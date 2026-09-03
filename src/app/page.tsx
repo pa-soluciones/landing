@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import ContactForm from "@/components/ContactForm";
 import Portfolio from "@/components/Portfolio";
+import Partners from "@/components/Partners";
 import About from "@/components/About";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -24,12 +25,11 @@ export default function Home() {
         <Hero />
         <Services />
         <Portfolio />
+        <Partners />
         <About />
         <ContactForm />
-        <section id="faq" className="faq-footer-section">
-          <FAQ />
-          <Footer />
-        </section>
+        <FAQ />
+        <Footer />
       </div>
       <ClientInit />
     </>
