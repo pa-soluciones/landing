@@ -5,6 +5,7 @@ type Partner = { name: string; src: string; ratio: number; url?: string };
 const PARTNERS: Partner[] = [
   { name: "AVN Nordelta", src: "/partners/avn-nordelta.svg", ratio: 174.1 / 45.4, url: "https://www.avnordelta.com/" },
   { name: "Tosud", src: "/partners/tosud.svg", ratio: 193 / 41, url: "https://tosudconstructora.com.ar/" },
+  { name: "Fleet Group", src: "/partners/fleet-group.png", ratio: 470 / 177, url: "https://www.fleetsa.com.ar/" },
 ];
 
 const GROUP = Array.from({ length: Math.max(2, Math.ceil(10 / PARTNERS.length)) }, () => PARTNERS).flat();
