@@ -870,37 +870,6 @@ img {
   color: var(--bg-dark);
 }
 
-.service-card:hover .service-svg-icon *[style*="fill:#f49600"],
-.service-card:hover .service-svg-icon *[fill="#f49600"],
-.service-card:hover .service-svg-icon *[fill="#E20613"],
-.service-card:hover .service-svg-icon .st0,
-.service-card:hover .service-svg-icon *[style*="fill:#E20613"],
-.service-card.active .service-svg-icon *[style*="fill:#f49600"],
-.service-card.active .service-svg-icon *[fill="#f49600"],
-.service-card.active .service-svg-icon *[fill="#E20613"],
-.service-card.active .service-svg-icon .st0,
-.service-card.active .service-svg-icon *[style*="fill:#E20613"] {
-  fill: var(--bg-dark) !important;
-}
-
-.service-card:hover .service-svg-icon *[style*="stroke:#f49600"],
-.service-card:hover .service-svg-icon *[stroke="#f49600"],
-.service-card.active .service-svg-icon *[style*="stroke:#f49600"],
-.service-card.active .service-svg-icon *[stroke="#f49600"] {
-  stroke: var(--bg-dark) !important;
-}
-
-.service-card:hover .service-svg-icon *[style*="fill:#575756"],
-.service-card:hover .service-svg-icon *[fill="#575756"],
-.service-card:hover .service-svg-icon .st2,
-.service-card:hover .service-svg-icon .st3,
-.service-card.active .service-svg-icon *[style*="fill:#575756"],
-.service-card.active .service-svg-icon *[fill="#575756"],
-.service-card.active .service-svg-icon .st2,
-.service-card.active .service-svg-icon .st3 {
-  fill: #ffffff !important;
-}
-
 .service-card:hover .service-hover-content,
 .service-card.active .service-hover-content {
   opacity: 1;
