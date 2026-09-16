@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { CORTES_PATH } from "@/lib/schema";
 
-const SERVICIOS = [
-  "Perforaciones en hormigón armado",
-  "Sellado técnico de juntas de dilatación",
-  "Bocas de ataque",
-  "Anclajes químicos y mecánicos",
-  "Operación técnica y mano de obra",
+const SERVICIOS: { name: string; href?: string }[] = [
+  { name: "Perforaciones en hormigón armado" },
+  { name: "Cortes en hormigón armado", href: CORTES_PATH },
+  { name: "Sellado técnico de juntas de dilatación" },
+  { name: "Bocas de ataque" },
+  { name: "Anclajes químicos y mecánicos" },
+  { name: "Operación técnica y mano de obra" },
 ];
 
 export default function Footer() {
@@ -21,7 +23,7 @@ export default function Footer() {
             <h3>Servicios</h3>
             <ul>
               {SERVICIOS.map((s) => (
-                <li key={s}>{s}</li>
+                <li key={s.name}>{s.href ? <Link href={s.href}>{s.name}</Link> : s.name}</li>
               ))}
             </ul>
           </div>

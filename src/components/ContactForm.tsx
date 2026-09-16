@@ -6,6 +6,7 @@ const WHATSAPP_NUMBER = "5491130144852";
 
 const SERVICIOS = [
   "Perforaciones H° A°",
+  "Cortes H° A°",
   "Sellado de Juntas",
   "Boca de Ataque",
   "Anclajes Químico y/o Mecánico",
