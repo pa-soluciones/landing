@@ -44,6 +44,8 @@ yarn-error.log*
 /.claude/
 /.gemini/
 /.agents/
+/.markdown-collab/
+/.impeccable/
 
 # turbo
 .turbo/
