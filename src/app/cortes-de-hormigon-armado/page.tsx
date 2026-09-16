@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, Crosshair, Droplets, Layers, Plus, ShieldCheck } from "lucide-react";
+import { Check, Crosshair, Droplets, Layers, ShieldCheck } from "lucide-react";
+import ClientInit from "@/components/ClientInit";
+import ContactForm from "@/components/ContactForm";
+import FaqList from "@/components/FaqList";
 import Footer from "@/components/Footer";
 import {
   CORTES_PATH,
@@ -28,10 +31,6 @@ export const metadata: Metadata = {
     images: [{ url: "/opengraph.png", width: 1200, height: 630, alt: "PAS Piedra Angular Solutions" }],
   },
 };
-
-const WHATSAPP_URL = `https://wa.me/5491130144852?text=${encodeURIComponent(
-  "Hola, quiero cotizar un corte en hormigón armado."
-)}`;
 
 const TIPOS = [
   {
@@ -155,7 +154,7 @@ export default function CortesPage() {
           <Link href="/" aria-label="Volver al inicio">
             <Image src="/logo-alt.svg" alt="PAS Piedra Angular Solutions" width={200} height={110} priority />
           </Link>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-cta bg-primary sp-header-cta">
+          <a href="#contacto" className="btn-cta bg-primary sp-header-cta">
             Cotizar
           </a>
         </div>
@@ -165,27 +164,27 @@ export default function CortesPage() {
         <section className="sp-hero bg-dark text-light">
           <div className="container sp-hero-grid">
             <div>
-              <nav aria-label="Ruta de navegación" className="sp-breadcrumb">
+              <nav aria-label="Ruta de navegación" className="sp-breadcrumb sp-rise">
                 <Link href="/">Inicio</Link>
                 <span aria-hidden="true">/</span>
                 <span aria-current="page">Cortes en hormigón armado</span>
               </nav>
-              <span className="section-top-title">Servicio</span>
-              <h1 className="section-title">{TITLE}</h1>
-              <p className="sp-lead">
+              <span className="section-top-title sp-rise">Servicio</span>
+              <h1 className="section-title sp-rise sp-rise-1">{TITLE}</h1>
+              <p className="sp-lead sp-rise sp-rise-2">
                 Cortamos losas, muros, vigas y pavimentos con disco e hilo diamantado refrigerado
                 por agua. Aperturas precisas y bordes limpios, sin vibración excesiva sobre la
                 estructura.
               </p>
-              <div className="sp-actions">
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-cta bg-primary">
+              <div className="sp-actions sp-rise sp-rise-3">
+                <a href="#contacto" className="btn-cta bg-primary">
                   Cotizar por WhatsApp
                 </a>
                 <a href="#tipos" className="btn-outline">
                   Ver tipos de corte
                 </a>
               </div>
-              <ul className="sp-trust">
+              <ul className="sp-trust sp-rise sp-rise-4">
                 <li>
                   <Check aria-hidden="true" /> Visita técnica sin cargo
                 </li>
@@ -197,7 +196,7 @@ export default function CortesPage() {
                 </li>
               </ul>
             </div>
-            <div className="sp-hero-media">
+            <div className="sp-hero-media sp-rise sp-rise-2">
               <Image
                 src="/work-images/corte-disco-diamantado.webp"
                 alt="Corte de hormigón armado con disco diamantado"
@@ -212,11 +211,11 @@ export default function CortesPage() {
 
         <section id="tipos" className="sp-section">
           <div className="container">
-            <span className="section-top-title">Qué cortamos</span>
-            <h2 className="section-title">Tipos de corte</h2>
+            <span className="section-top-title fade-up animate-on-scroll">Qué cortamos</span>
+            <h2 className="section-title fade-up animate-on-scroll delay-100">Tipos de corte</h2>
             <ul className="sp-types">
               {TIPOS.map((tipo, i) => (
-                <li key={tipo.title} className="sp-type">
+                <li key={tipo.title} className={`sp-type fade-up animate-on-scroll delay-${(i % 3) + 1}00`}>
                   <span className="sp-type-index">{String(i + 1).padStart(2, "0")}</span>
                   <h3>{tipo.title}</h3>
                   <p>{tipo.text}</p>
@@ -228,11 +227,11 @@ export default function CortesPage() {
 
         <section className="sp-section bg-dark text-light">
           <div className="container">
-            <span className="section-top-title">Tecnología diamantada</span>
-            <h2 className="section-title">Por qué cortar con diamante</h2>
+            <span className="section-top-title fade-up animate-on-scroll">Tecnología diamantada</span>
+            <h2 className="section-title fade-up animate-on-scroll delay-100">Por qué cortar con diamante</h2>
             <ul className="sp-benefits">
-              {VENTAJAS.map(({ icon: Icon, title, text }) => (
-                <li key={title}>
+              {VENTAJAS.map(({ icon: Icon, title, text }, i) => (
+                <li key={title} className={`fade-up animate-on-scroll delay-${i + 1}00`}>
                   <Icon className="sp-benefit-icon" aria-hidden="true" />
                   <h3>{title}</h3>
                   <p>{text}</p>
@@ -244,11 +243,11 @@ export default function CortesPage() {
 
         <section className="sp-section">
           <div className="container">
-            <span className="section-top-title">Cómo trabajamos</span>
-            <h2 className="section-title">De la consulta al corte</h2>
+            <span className="section-top-title fade-up animate-on-scroll">Cómo trabajamos</span>
+            <h2 className="section-title fade-up animate-on-scroll delay-100">De la consulta al corte</h2>
             <ol className="sp-steps">
-              {PASOS.map((paso) => (
-                <li key={paso.title}>
+              {PASOS.map((paso, i) => (
+                <li key={paso.title} className={`fade-up animate-on-scroll delay-${i + 1}00`}>
                   <h3>{paso.title}</h3>
                   <p>{paso.text}</p>
                 </li>
@@ -257,34 +256,25 @@ export default function CortesPage() {
           </div>
         </section>
 
+        <ContactForm defaultServicio="Cortes H° A°" />
+
         <section id="faq" className="sp-section sp-faq-section">
-          <div className="container">
-            <span className="section-top-title">Preguntas frecuentes</span>
-            <h2 className="section-title">Sobre los cortes</h2>
-            <div className="sp-faq">
-              {FAQS.map((faq) => (
-                <details key={faq.question} className="sp-faq-item">
-                  <summary>
-                    {faq.question}
-                    <Plus className="sp-faq-icon" aria-hidden="true" />
-                  </summary>
-                  <p>{faq.answer}</p>
-                </details>
-              ))}
+          <div className="container text-center">
+            <span className="section-top-title fade-up animate-on-scroll">Preguntas frecuentes</span>
+            <h2 className="section-title fade-up animate-on-scroll delay-100">Sobre los cortes</h2>
+            <div className="fade-up animate-on-scroll delay-200">
+              <FaqList items={FAQS} />
             </div>
           </div>
         </section>
 
         <section className="sp-cta">
           <div className="container">
-            <h2>¿Tenés que cortar hormigón armado?</h2>
-            <p>Contanos qué necesitás y coordinamos una visita técnica sin cargo.</p>
-            <div className="sp-actions">
-              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-cta sp-btn-dark">
+            <h2 className="fade-up animate-on-scroll">¿Tenés que cortar hormigón armado?</h2>
+            <p className="fade-up animate-on-scroll delay-100">Contanos qué necesitás y coordinamos una visita técnica sin cargo.</p>
+            <div className="sp-actions fade-up animate-on-scroll delay-200">
+              <a href="#contacto" className="btn-cta sp-btn-dark">
                 Cotizar por WhatsApp
-              </a>
-              <a href="tel:+5491130144852" className="sp-cta-link">
-                o llamanos al +54 9 11 3014-4852
               </a>
             </div>
             <Link href="/#servicios" className="sp-cta-link">
@@ -295,6 +285,7 @@ export default function CortesPage() {
       </main>
 
       <Footer />
+      <ClientInit />
     </>
   );
 }
