@@ -14,10 +14,10 @@ const SERVICIOS = [
   "Consultoría General",
 ];
 
-export default function ContactForm() {
+export default function ContactForm({ defaultServicio = "" }: { defaultServicio?: string }) {
   const [nombre, setNombre] = useState("");
   const [empresa, setEmpresa] = useState("");
-  const [servicio, setServicio] = useState("");
+  const [servicio, setServicio] = useState(defaultServicio);
   const [consulta, setConsulta] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -102,7 +102,10 @@ export default function ContactForm() {
         <div className="contact-form-container fade-up animate-on-scroll delay-200">
           <form id="whatsapp-form" className="whatsapp-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="nombre">Nombre Completo</label>
+              <div className="form-label-row">
+                <label htmlFor="nombre">Nombre Completo</label>
+                <span className="char-counter">{nombre.length}/50</span>
+              </div>
               <input
                 type="text"
                 id="nombre"
@@ -113,14 +116,14 @@ export default function ContactForm() {
                 value={nombre}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setNombre(e.target.value)}
               />
-              <div className="char-counter">
-                <span>{nombre.length}</span>/50
-              </div>
             </div>
             <div className="form-group">
-              <label htmlFor="empresa">
-                Empresa <span className="label-optional">(opcional)</span>
-              </label>
+              <div className="form-label-row">
+                <label htmlFor="empresa">
+                  Empresa <span className="label-optional">(opcional)</span>
+                </label>
+                <span className="char-counter">{empresa.length}/70</span>
+              </div>
               <input
                 type="text"
                 id="empresa"
@@ -130,9 +133,6 @@ export default function ContactForm() {
                 value={empresa}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setEmpresa(e.target.value)}
               />
-              <div className="char-counter">
-                <span>{empresa.length}</span>/70
-              </div>
             </div>
             <div className="form-group">
               <label htmlFor="servicio">Servicio de Interés</label>
@@ -154,20 +154,20 @@ export default function ContactForm() {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="consulta">Consulta</label>
+              <div className="form-label-row">
+                <label htmlFor="consulta">Consulta</label>
+                <span className="char-counter">{consulta.length}/500</span>
+              </div>
               <textarea
                 id="consulta"
                 name="consulta"
-                rows={4}
+                rows={3}
                 placeholder="Cuéntanos sobre tu proyecto o necesidades..."
                 maxLength={500}
                 required
                 value={consulta}
                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setConsulta(e.target.value)}
               />
-              <div className="char-counter">
-                <span>{consulta.length}</span>/500
-              </div>
             </div>
             <button type="submit" className="btn-submit bg-primary">
               Enviar Mensaje por WhatsApp

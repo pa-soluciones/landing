@@ -76,7 +76,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${poppins.variable} ${outfit.variable}`}>
+    <html lang="es" className={`${poppins.variable} ${outfit.variable}`} data-scroll-behavior="smooth">
       <head>
         <link rel="preload" as="image" href="/hero-bg.webp" fetchPriority="high" />
         <script
