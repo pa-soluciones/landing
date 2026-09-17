@@ -2,45 +2,10 @@
 import { useEffect, useRef } from "react";
 import DrillIcon from "./icons/DrillIcon";
 import AnchorIcon from "./icons/AnchorIcon";
+import CutIcon from "./icons/CutIcon";
+import Link from "next/link";
+import { CORTES_PATH } from "@/lib/schema";
 
-const services = [
-  {
-    icon: "drill",
-    title: "Perforaciones en Hormigón Armado",
-    description:
-      "Especialistas en perforaciones de precisión para ductos, pases y refuerzos estructurales. Garantizamos cortes limpios y exactos incluso en los materiales más exigentes del mercado.",
-    delay: "delay-100",
-  },
-  {
-    icon: "joint",
-    title: "Sellado Técnico de Juntas de Dilatación",
-    description:
-      "Tratamiento elástico diseñado para absorber movimientos termo-mecánicos y evitar el desgranamiento de bordes por impacto.",
-    delay: "delay-200",
-  },
-  {
-    icon: "hose",
-    title: "Bocas de Ataque - Servicio integral",
-    description:
-      "Nos encargamos del proceso completo para que su obra cumpla con las exigencias reglamentarias. Perforación precisa, ejecución de recuadro y colocación de ladrillos.",
-    delay: "delay-300",
-  },
-  {
-    icon: "anchor",
-    titleDefault: "Anclajes",
-    titleHover: "Químicos y Mecánicos",
-    description:
-      "Realizamos instalaciones precisas de anclajes químicos y mecánicos, garantizando máxima estabilidad y durabilidad en cada estructura.",
-    delay: "delay-100",
-  },
-  {
-    icon: "workers",
-    title: "Operación Técnica y Mano de Obra",
-    description:
-      "Operadores calificados para la ejecución de proyectos con maquinaria propia del cliente. Brindamos flexibilidad operativa y adaptación a cronogramas de obra.",
-    delay: "delay-300",
-  },
-];
 
 function JointIcon({ className }: { className?: string }) {
   return (
@@ -173,6 +138,20 @@ export default function Services() {
           </div>
 
           <div className="service-card fade-up animate-on-scroll delay-200">
+            <CutIcon className="service-svg-icon" />
+            <h3>Cortes en Hormigón Armado</h3>
+            <div className="service-hover-content">
+              <p>
+                Cortes con disco e hilo diamantado en losas, muros y vigas. Apertura de vanos, pases
+                rectangulares y demolición controlada.
+              </p>
+              <Link href={CORTES_PATH} className="service-link">
+                Ver tipos de corte →
+              </Link>
+            </div>
+          </div>
+
+          <div className="service-card fade-up animate-on-scroll delay-300">
             <JointIcon className="service-svg-icon" />
             <h3>Sellado Técnico de Juntas de Dilatación</h3>
             <div className="service-hover-content">
@@ -183,7 +162,7 @@ export default function Services() {
             </div>
           </div>
 
-          <div className="service-card fade-up animate-on-scroll delay-300">
+          <div className="service-card fade-up animate-on-scroll delay-100">
             <HoseIcon className="service-svg-icon" />
             <h3>Bocas de Ataque - Servicio integral</h3>
             <div className="service-hover-content">
@@ -195,7 +174,7 @@ export default function Services() {
             </div>
           </div>
 
-          <div className="service-card fade-up animate-on-scroll delay-100">
+          <div className="service-card fade-up animate-on-scroll delay-200">
             <AnchorIcon className="service-svg-icon" />
             <h3>
               <span className="text-default">Anclajes</span>

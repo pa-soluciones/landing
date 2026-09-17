@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import AnimatedLogo from "./icons/AnimatedLogo";
 
 export default function Hero() {
   return (
@@ -7,18 +7,7 @@ export default function Hero() {
       <div className="hero-background" />
       <div className="hero-content container">
         <div className="hero-logo-wrapper" id="hero-logo-wrapper">
-          <video
-            src="/animated-logo.webm"
-            className="pas-logo"
-            id="animated-logo"
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="/logo.svg"
-            preload="none"
-            aria-label="PAS Piedra Angular Solutions logo animado"
-          />
+          <AnimatedLogo className="pas-logo" />
         </div>
 
         <h1 className="hero-title">

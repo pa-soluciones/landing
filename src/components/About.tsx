@@ -12,7 +12,7 @@ export default function About() {
             alt="Equipo PAS Piedra Angular Solutions trabajando en obra"
             className="about-main-img"
             width={600}
-            height={700}
+            height={600}
             loading="lazy"
           />
           <Image
@@ -20,7 +20,7 @@ export default function About() {
             alt="PAS Logo"
             className="about-logo-overlay"
             width={250}
-            height={100}
+            height={137}
             loading="lazy"
           />
           <div className="experience-badge">

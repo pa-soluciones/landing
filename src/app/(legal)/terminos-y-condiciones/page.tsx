@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Términos y Condiciones",
   description:
     "Términos y Condiciones de uso del sitio pasoluciones.com.ar de PAS Piedra Angular Solutions: alcance de la información publicada, presupuestos, propiedad intelectual y responsabilidad.",
-  alternates: { canonical: "https://pasoluciones.com.ar/terminos-y-condiciones" },
+  alternates: { canonical: "/terminos-y-condiciones" },
 };
 
 export default function TerminosYCondiciones() {
