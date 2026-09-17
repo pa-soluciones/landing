@@ -35,7 +35,7 @@ export default function Header() {
             src="/logo.svg"
             alt="PAS Piedra Angular Solutions"
             width={100}
-            height={40}
+            height={55}
             priority
           />
         </a>

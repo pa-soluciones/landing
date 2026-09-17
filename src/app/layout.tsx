@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { poppins, outfit } from "@/lib/fonts";
 import "./globals.css";
-import { localBusinessSchema, organizationSchema, webSiteSchema } from "@/lib/schema";
+import { SITE_URL, localBusinessSchema, organizationSchema, webSiteSchema } from "@/lib/schema";
 import CookieConsent from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pasoluciones.com.ar"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Perforaciones en Hormigón Armado Buenos Aires | PAS Piedra Angular Solutions",
     template: "%s | PAS Piedra Angular Solutions",
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   alternates: {
-    canonical: "https://pasoluciones.com.ar",
-    languages: { "es-AR": "https://pasoluciones.com.ar" },
+    canonical: "/",
+    languages: { "es-AR": "/" },
   },
   openGraph: {
     type: "website",
     locale: "es_AR",
-    url: "https://pasoluciones.com.ar",
+    url: "/",
     siteName: "PAS Piedra Angular Solutions",
     title: "PAS | Perforaciones y Cortes en Hormigón Armado",
     description:
@@ -76,7 +76,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${poppins.variable} ${outfit.variable}`}>
+    <html lang="es" className={`${poppins.variable} ${outfit.variable}`} data-scroll-behavior="smooth">
       <head>
         <link rel="preload" as="image" href="/hero-bg.webp" fetchPriority="high" />
         <script

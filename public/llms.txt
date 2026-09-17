@@ -1,11 +1,14 @@
 # PAS Piedra Angular Solutions
 
 > Empresa especializada en perforaciones, cortes y anclajes en hormigón armado.
-> Operamos en Buenos Aires y CABA mediante tecnología diamantada refrigerada por agua. Fundada en 2026.
+> Operamos en CABA y Gran Buenos Aires con tecnología diamantada refrigerada por agua. Fundada en 2026, con un equipo técnico de más de 6 años de experiencia.
+
+Sitio: https://www.pasoluciones.com.ar
 
 ## Servicios
 
-- Perforaciones en Hormigón Armado: pases para ductos, refuerzos estructurales, diámetros estándar y especiales.
+- [Perforaciones en Hormigón Armado](https://www.pasoluciones.com.ar/#servicios): pases para ductos, refuerzos estructurales, diámetros estándar y especiales.
+- [Cortes en Hormigón Armado](https://www.pasoluciones.com.ar/cortes-de-hormigon-armado): corte con disco diamantado en losas y muros, corte con hilo diamantado en vigas, columnas y fundaciones, apertura de vanos para puertas, ventanas, escaleras y ascensores, pases rectangulares, corte de pavimentos y juntas, y demolición controlada.
 - Sellado Técnico de Juntas de Dilatación: tratamiento elástico para absorber movimientos termo-mecánicos y prevenir filtraciones y desgranamiento.
 - Bocas de Ataque: servicio integral (perforación + recuadro + ladrillos) según reglamentación del Código de Edificación GCBA.
 - Anclajes Químicos y Mecánicos: instalaciones de precisión garantizando estabilidad y durabilidad estructural.
@@ -19,8 +22,8 @@ Ciudad Autónoma de Buenos Aires (CABA), Gran Buenos Aires, Zona Norte, Zona Sur
 
 - WhatsApp: +54 9 11 3014-4852
 - Email: ventas@pasoluciones.com.ar
-- Presupuesto sin cargo
+- Visita técnica y presupuesto sin cargo
 
 ## Acerca de
 
-Fundada: 2026. Tecnología: diamantada refrigerada por agua — cortes limpios sin vibración excesiva. Obras residenciales, comerciales e industriales en CABA y GBA.
+Fundada en 2026. Equipo técnico con más de 6 años de experiencia. Tecnología diamantada refrigerada por agua: cortes y perforaciones limpios, sin vibración excesiva. Obras residenciales, comerciales e industriales en CABA y GBA.
