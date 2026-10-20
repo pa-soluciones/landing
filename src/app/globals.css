@@ -55,6 +55,12 @@ h3,
 h4,
 .font-heading {
   font-family: var(--font-heading);
+}
+
+h1,
+h2,
+h4,
+.font-heading {
   text-transform: uppercase;
 }
 
@@ -164,6 +170,17 @@ img {
 .btn-outline:hover {
   background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+}
+
+/* Android paints a blue flash over anything tapped; the buttons give their own press feedback instead. */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-cta:active,
+.btn-outline:active,
+.btn-submit:active {
+  transform: scale(0.97);
 }
 
 /* ==========================================================================
@@ -283,11 +300,14 @@ img {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   transform: translateY(-100%);
-  transition: transform 0.5s ease-out;
+  visibility: hidden;
+  transition: transform 0.5s ease-out, visibility 0s linear 0.5s;
 }
 
 #main-header.visible {
   transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.5s ease-out, visibility 0s;
 }
 
 #main-header .container {
@@ -335,6 +355,8 @@ img {
   cursor: pointer;
   color: var(--bg-dark);
   padding: 0.25rem;
+  min-width: 44px;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
 }
@@ -386,13 +408,16 @@ img {
   opacity: 0;
   transform: translateY(-8px);
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
 }
 
 .mobile-menu.open {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
 }
 
 .mobile-menu a {
@@ -534,9 +559,10 @@ img {
   align-items: center;
   color: var(--primary);
   opacity: 0.8;
-  animation: bounce 2s infinite ease-in-out;
+  animation: bounce 2s ease-in-out 3;
   z-index: 5;
   cursor: pointer;
+  min-width: 44px;
 }
 
 .scroll-indicator svg {
@@ -600,26 +626,20 @@ img {
 /* ==========================================================================
    Scroll Reveal Animations
    ========================================================================== */
-.fade-left {
+/* Content is visible by default; it only waits to animate in once JS has marked the page. */
+.fade-left,
+.fade-up {
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-ready .fade-left:not(.visible) {
   opacity: 0;
   transform: translateX(-30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.fade-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.fade-up {
+.reveal-ready .fade-up:not(.visible) {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .delay-100 {
@@ -673,7 +693,6 @@ img {
   position: relative;
   z-index: 2;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  border-left: 8px solid var(--primary);
   width: 100%;
 }
 
@@ -721,6 +740,10 @@ img {
   color: var(--secondary);
   font-size: 1.125rem;
   margin-bottom: 1rem;
+}
+
+.about-slogan .text-primary {
+  color: var(--primary);
 }
 
 .about-slogan {
@@ -849,49 +872,42 @@ img {
   color: var(--text-light);
   margin-bottom: 0;
   transition: transform 0.4s ease, color 0.4s ease;
-  text-transform: uppercase;
   font-weight: 800;
-  letter-spacing: 0.05em;
 }
 
 .service-card h3 .text-hover {
   display: none;
 }
 
-.service-card:hover h3 .text-default {
+.service-card.active h3 .text-default {
   display: none;
 }
 
-.service-card:hover h3 .text-hover {
+.service-card.active h3 .text-hover {
   display: inline;
 }
 
 .service-hover-content {
-  opacity: 0.75;
   transition: opacity 0.4s ease;
 }
 
 .service-card p {
-  color: var(--text-muted);
+  color: rgba(249, 249, 249, 0.68);
   font-weight: 500;
   font-size: 0.85rem;
   margin: 0;
   line-height: 1.4;
 }
 
-.service-card:hover,
 .service-card.active {
   background-color: var(--primary);
 }
 
-.service-card:hover .service-svg-icon,
-.service-card:hover h3,
 .service-card.active .service-svg-icon,
 .service-card.active h3 {
   color: var(--bg-dark);
 }
 
-.service-card:hover .service-hover-content,
 .service-card.active .service-hover-content {
   opacity: 1;
 }
@@ -909,12 +925,10 @@ img {
   text-underline-offset: 3px;
 }
 
-.service-card:hover .service-link,
 .service-card.active .service-link {
   color: var(--bg-dark);
 }
 
-.service-card:hover p,
 .service-card.active p {
   color: var(--bg-dark);
 }
@@ -984,6 +998,17 @@ img {
   flex: 0 0 auto;
   width: 78%;
   margin-right: 1rem;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+.portfolio-item:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: -4px;
 }
 
 @media (min-width: 640px) {
@@ -1032,7 +1057,8 @@ img {
   transition: opacity 0.4s ease;
 }
 
-.portfolio-item:hover .overlay {
+.portfolio-item:hover .overlay,
+.portfolio-item:focus-visible .overlay {
   opacity: 1;
 }
 
@@ -1049,7 +1075,8 @@ img {
   transition: transform 0.4s ease;
 }
 
-.portfolio-item:hover .overlay span {
+.portfolio-item:hover .overlay span,
+.portfolio-item:focus-visible .overlay span {
   transform: translateY(0);
 }
 
@@ -1090,6 +1117,7 @@ img {
   cursor: pointer;
   padding: 0.5rem;
   margin: -0.5rem;
+  min-height: 44px;
   border-radius: 0.75rem;
   transition: background-color 0.2s ease;
   width: 100%;
@@ -1120,7 +1148,7 @@ img {
 
 .copy-indicator.copied {
   opacity: 1;
-  color: #22c55e;
+  color: #15803d;
 }
 
 .icon-bubble {
@@ -1182,7 +1210,7 @@ img {
 }
 
 .whatsapp-form .label-optional {
-  color: var(--text-muted);
+  color: var(--secondary);
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
@@ -1194,7 +1222,7 @@ img {
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
-  border: 1px solid #e1e1e1;
+  border: 1px solid #8a8a8a;
   background-color: #fff;
   font-family: var(--font-body);
   font-size: 1rem;
@@ -1209,9 +1237,9 @@ img {
 .whatsapp-form input:focus,
 .whatsapp-form select:focus,
 .whatsapp-form textarea:focus {
-  outline: none;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(244, 150, 0, 0.2);
 }
 
 .char-counter {
@@ -1251,8 +1279,8 @@ img {
 }
 
 .partners-desc strong {
-  font-weight: 700;
   color: var(--primary);
+  font-weight: 700;
 }
 
 .partners-marquee {
@@ -1316,7 +1344,7 @@ img {
   mask-size: contain;
 }
 
-a.partner-logo:hover {
+.partner-logo:hover {
   background-color: var(--primary);
   opacity: 1;
 }
@@ -1392,8 +1420,6 @@ a.partner-logo:focus-visible {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
   color: var(--text-dark);
   text-align: left;
   gap: 1rem;
@@ -1473,6 +1499,7 @@ a.partner-logo:focus-visible {
 .footer-col h3 {
   font-size: 0.75rem;
   font-weight: 700;
+  text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--primary);
   margin-bottom: 1.25rem;
@@ -1534,7 +1561,7 @@ a.footer-contact-item:hover .value {
 }
 
 .copyright {
-  color: var(--text-muted);
+  color: rgba(249, 249, 249, 0.68);
   font-size: 0.8125rem;
 }
 
@@ -1545,7 +1572,7 @@ a.footer-contact-item:hover .value {
   padding: 0.45rem 1.1rem;
   border: 1px solid rgba(244, 150, 0, 0.35);
   border-radius: 999px;
-  color: var(--text-muted);
+  color: rgba(249, 249, 249, 0.68);
   font-size: 0.78rem;
   font-family: var(--font-body), sans-serif;
   letter-spacing: 0.04em;
@@ -1641,12 +1668,14 @@ a.footer-contact-item:hover .value {
 /* Scroll wrapper */
 #scroll-wrapper {
   height: 100vh;
+  height: 100dvh;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: none;
 }
 
-@media (min-width: 768px) {
+/* One section per screen. Keep in sync with SNAP_QUERY in src/lib/layout.ts. */
+@media (min-width: 768px) and (min-height: 500px) {
   #scroll-wrapper {
     overflow: hidden;
   }
@@ -1659,7 +1688,17 @@ a.footer-contact-item:hover .value {
     flex-direction: column;
     justify-content: center;
   }
+}
 
+/* Free scrolling: jumping to a section leaves room for the fixed header. */
+@media (max-width: 767px), (max-height: 499px) {
+  #scroll-wrapper > section,
+  #scroll-wrapper > footer {
+    scroll-margin-top: 80px;
+  }
+}
+
+@media (min-width: 768px) {
   .faq-section {
     padding: 4rem 0;
   }
@@ -2115,7 +2154,7 @@ a.footer-contact-item:hover .value {
 }
 
 .legal-updated {
-  color: var(--text-muted);
+  color: var(--secondary);
   font-size: 0.875rem;
   margin-bottom: 2rem;
 }
@@ -2279,10 +2318,11 @@ a.footer-contact-item:hover .value {
 .sp-breadcrumb {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: rgba(249, 249, 249, 0.68);
 }
 
 .sp-breadcrumb a:hover {
@@ -2349,70 +2389,103 @@ a.footer-contact-item:hover .value {
   padding: 1.75rem 1.5rem;
 }
 
-.sp-type-index {
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 0.875rem;
-  color: var(--primary);
-  margin-bottom: 0.75rem;
-}
-
-.sp-type h3,
-.sp-benefits h3,
-.sp-steps h3 {
+.sp-type h3 {
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
   line-height: 1.3;
   margin-bottom: 0.5rem;
 }
 
-.sp-type p,
-.sp-steps p {
+.sp-type p {
   color: var(--secondary);
 }
 
-.sp-benefits {
+.sp-tipos-grid {
   display: grid;
-  gap: 2rem;
-  margin-top: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
 }
 
-.sp-benefits p {
-  color: rgba(249, 249, 249, 0.7);
+.sp-group + .sp-group {
+  margin-top: 2.5rem;
 }
 
-.sp-benefit-icon {
-  width: 2rem;
-  height: 2rem;
-  color: var(--primary);
+.sp-group > h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.sp-group-note {
+  color: var(--secondary);
   margin-bottom: 1rem;
 }
 
-.sp-steps {
+.sp-aside {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  border-radius: var(--border-radius);
+  padding: 2rem 1.75rem;
+}
+
+.sp-aside h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.sp-aside ul {
   display: grid;
-  gap: 1.5rem;
-  margin-top: 1rem;
-  list-style: none;
-  counter-reset: step;
+  gap: 1.25rem;
 }
 
-.sp-steps li {
-  counter-increment: step;
-  padding-top: 1.25rem;
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.sp-steps li::before {
-  content: counter(step, decimal-leading-zero);
+.sp-aside strong {
   display: block;
   font-family: var(--font-heading);
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.sp-aside p {
+  color: rgba(249, 249, 249, 0.7);
+  font-size: 0.95rem;
+}
+
+.contact-steps {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact-steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  column-gap: 0.5rem;
+}
+
+.contact-steps li::before {
+  content: counter(step, decimal-leading-zero);
+  grid-row: span 2;
+  font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 2rem;
-  line-height: 1;
+  font-size: 1.1rem;
+  line-height: 1.4;
   color: var(--primary);
-  margin-bottom: 0.75rem;
+}
+
+.contact-steps strong {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.contact-steps p {
+  color: var(--secondary);
+  font-size: 0.95rem;
 }
 
 .sp-faq-section {
@@ -2463,11 +2536,6 @@ a.footer-contact-item:hover .value {
   .sp-types {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .sp-benefits,
-  .sp-steps {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (min-width: 1024px) {
@@ -2484,13 +2552,14 @@ a.footer-contact-item:hover .value {
     padding-block: 6rem;
   }
 
-  .sp-types {
-    grid-template-columns: repeat(3, 1fr);
+  .sp-tipos-grid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 3rem;
   }
 
-  .sp-benefits,
-  .sp-steps {
-    grid-template-columns: repeat(4, 1fr);
+  .sp-aside {
+    position: sticky;
+    top: 2rem;
   }
 }
 
@@ -2535,5 +2604,221 @@ a.footer-contact-item:hover .value {
 @media (prefers-reduced-motion: reduce) {
   .sp-rise {
     animation: none;
+  }
+}
+
+/* Touch targets: standalone links reach 44px on phones. */
+@media (max-width: 767px) {
+  .footer-col a:not(.footer-contact-item),
+  .sp-breadcrumb a,
+  .sp-cta-link,
+  .powered-by-link,
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .sp-breadcrumb a {
+    min-width: 44px;
+  }
+
+  .footer-col .footer-contact-item {
+    min-height: 44px;
+  }
+}
+
+/* Contact feedback: copy result and WhatsApp send status. */
+.copy-indicator-text {
+  margin-left: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.copy-indicator.copy-failed {
+  opacity: 1;
+  color: #b91c1c;
+}
+
+.form-status {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.form-status:empty {
+  margin: 0;
+}
+
+.form-status a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Services: the two core services lead, the other four stay compact. */
+.service-card--featured {
+  align-items: flex-start;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.service-card--featured .service-svg-icon {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 0.5rem;
+}
+
+.service-card--featured h3 {
+  font-size: 1.35rem;
+}
+
+.service-card--featured .service-hover-content {
+  width: 100%;
+}
+
+.service-card--featured p {
+  font-size: 0.95rem;
+}
+
+.service-fact {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(249, 249, 249, 0.12);
+}
+
+.service-card .service-fact {
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.service-card.active .service-fact {
+  border-top-color: rgba(31, 33, 35, 0.2);
+}
+
+.service-card--compact {
+  min-height: 0;
+  padding: 1.5rem 1.25rem;
+}
+
+.service-card--compact .service-svg-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0.25rem;
+}
+
+.service-card--compact h3 {
+  font-size: 1rem;
+}
+
+.service-card--compact p {
+  font-size: 0.8rem;
+}
+
+@media (min-width: 1024px) {
+  .services-grid .service-card--featured {
+    width: calc(50% - 0.5rem);
+  }
+
+  .services-grid .service-card--compact {
+    width: calc(25% - 0.75rem);
+  }
+}
+
+/* Contact: on touch screens email and phone open the mail app or dial; elsewhere they copy. */
+.contact-item-touch {
+  display: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .contact-item-copy {
+    display: none;
+  }
+
+  .contact-item-touch {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-indicator {
+    animation: none;
+  }
+}
+
+@media (hover: hover) {
+  .service-card:hover {
+    background-color: var(--primary);
+  }
+
+  .service-card:hover .service-svg-icon,
+  .service-card:hover h3,
+  .service-card:hover p,
+  .service-card:hover .service-link {
+    color: var(--bg-dark);
+  }
+
+  .service-card:hover .service-fact {
+    border-top-color: rgba(31, 33, 35, 0.2);
+  }
+
+  .service-card:hover h3 .text-default {
+    display: none;
+  }
+
+  .service-card:hover h3 .text-hover {
+    display: inline;
+  }
+}
+
+/* Free-scroll layout: room under the footer so "Powered by" clears the browser toolbar. */
+@media (max-width: 767px), (max-height: 499px) {
+  .footer-section {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Image viewer: one line telling people what tapping and dragging do. */
+.modal-hint {
+  position: fixed;
+  left: 50%;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 10001;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--text-light);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.modal-hint .hint-mouse {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .modal-hint .hint-touch {
+    display: none;
+  }
+
+  .modal-hint .hint-mouse {
+    display: inline;
   }
 }
