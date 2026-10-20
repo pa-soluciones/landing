@@ -11,7 +11,7 @@ export default function Hero() {
         </div>
 
         <h1 className="hero-title">
-          Perforaciones en <span className="text-primary">Hormigón Armado</span> — Buenos Aires
+          Perforaciones en <span className="text-primary">Hormigón Armado</span> en Buenos Aires
         </h1>
         <p className="hero-subtitle">
           Especialistas en cortes y perforaciones de hormigón armado mediante tecnología diamantada

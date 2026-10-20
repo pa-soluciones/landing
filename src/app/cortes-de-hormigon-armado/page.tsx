@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, Crosshair, Droplets, Layers, ShieldCheck } from "lucide-react";
+import { Check } from "lucide-react";
 import ClientInit from "@/components/ClientInit";
 import ContactForm from "@/components/ContactForm";
 import FaqList from "@/components/FaqList";
@@ -32,51 +32,65 @@ export const metadata: Metadata = {
   },
 };
 
-const TIPOS = [
+const GRUPOS = [
   {
-    title: "Corte con disco en losas y muros",
-    text: "Cortes rectos en losas, tabiques y muros de hormigón armado con sierra de disco diamantado.",
+    title: "Con disco diamantado",
+    note: "Para cortes rectos en superficies planas.",
+    items: [
+      {
+        title: "Losas y muros",
+        text: "Cortes rectos en losas, tabiques y muros de hormigón armado.",
+      },
+      {
+        title: "Pavimentos y juntas",
+        text: "Corte de pavimentos de hormigón para zanjas y reparaciones, y aserrado de juntas en pisos.",
+      },
+    ],
   },
   {
-    title: "Corte con hilo diamantado",
-    text: "Para piezas de gran espesor o geometría compleja, como vigas, columnas y fundaciones, donde el disco no alcanza.",
+    title: "Con hilo diamantado",
+    note: "Para piezas de gran espesor o geometría compleja, donde el disco no alcanza.",
+    items: [
+      {
+        title: "Vigas, columnas y fundaciones",
+        text: "Corte de elementos estructurales de gran sección.",
+      },
+    ],
   },
   {
-    title: "Apertura de vanos",
-    text: "Aberturas para puertas, ventanas, escaleras, ascensores y montacargas en estructuras existentes.",
-  },
-  {
-    title: "Pases rectangulares",
-    text: "Pases a medida en losas y muros para ductos de aire acondicionado, plenos e instalaciones.",
-  },
-  {
-    title: "Pavimentos y juntas",
-    text: "Corte de pavimentos de hormigón para zanjas y reparaciones, y aserrado de juntas en pisos.",
-  },
-  {
-    title: "Demolición controlada",
-    text: "Retiro de sectores de hormigón por corte, con menos ruido y vibración que la demolición con martillo.",
+    title: "Con disco o hilo, según la estructura",
+    note: "Definimos el método en la visita técnica.",
+    items: [
+      {
+        title: "Apertura de vanos",
+        text: "Aberturas para puertas, ventanas, escaleras, ascensores y montacargas en estructuras existentes.",
+      },
+      {
+        title: "Pases rectangulares",
+        text: "Pases a medida en losas y muros para ductos de aire acondicionado, plenos e instalaciones.",
+      },
+      {
+        title: "Demolición controlada",
+        text: "Retiro de sectores de hormigón por corte, con menos ruido y vibración que la demolición con martillo.",
+      },
+    ],
   },
 ];
 
 const VENTAJAS = [
   {
-    icon: Crosshair,
     title: "Precisión",
     text: "Bordes limpios y medidas exactas, listos para la etapa siguiente de la obra.",
   },
   {
-    icon: ShieldCheck,
     title: "Sin vibración excesiva",
     text: "El corte no transmite impactos a la estructura que queda en pie.",
   },
   {
-    icon: Layers,
     title: "Corta hormigón y armadura",
     text: "La herramienta diamantada corta el hormigón y los hierros en la misma pasada.",
   },
   {
-    icon: Droplets,
     title: "Refrigerado por agua",
     text: "El agua enfría la herramienta y retiene buena parte del polvo del corte.",
   },
@@ -169,7 +183,6 @@ export default function CortesPage() {
                 <span aria-hidden="true">/</span>
                 <span aria-current="page">Cortes en hormigón armado</span>
               </nav>
-              <span className="section-top-title sp-rise">Servicio</span>
               <h1 className="section-title sp-rise sp-rise-1">{TITLE}</h1>
               <p className="sp-lead sp-rise sp-rise-2">
                 Cortamos losas, muros, vigas y pavimentos con disco e hilo diamantado refrigerado
@@ -211,57 +224,56 @@ export default function CortesPage() {
 
         <section id="tipos" className="sp-section">
           <div className="container">
-            <span className="section-top-title fade-up animate-on-scroll">Qué cortamos</span>
-            <h2 className="section-title fade-up animate-on-scroll delay-100">Tipos de corte</h2>
-            <ul className="sp-types">
-              {TIPOS.map((tipo, i) => (
-                <li key={tipo.title} className={`sp-type fade-up animate-on-scroll delay-${(i % 3) + 1}00`}>
-                  <span className="sp-type-index">{String(i + 1).padStart(2, "0")}</span>
-                  <h3>{tipo.title}</h3>
-                  <p>{tipo.text}</p>
-                </li>
-              ))}
-            </ul>
+            <h2 className="section-title fade-up animate-on-scroll">Tipos de corte</h2>
+            <div className="sp-tipos-grid">
+              <div>
+                {GRUPOS.map((grupo) => (
+                  <div key={grupo.title} className="sp-group fade-up animate-on-scroll">
+                    <h3>{grupo.title}</h3>
+                    <p className="sp-group-note">{grupo.note}</p>
+                    <ul className="sp-types">
+                      {grupo.items.map((tipo) => (
+                        <li key={tipo.title} className="sp-type">
+                          <h3>{tipo.title}</h3>
+                          <p>{tipo.text}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <aside className="sp-aside fade-up animate-on-scroll delay-200" aria-labelledby="por-que-diamante">
+                <h3 id="por-que-diamante">Por qué cortar con diamante</h3>
+                <ul>
+                  {VENTAJAS.map(({ title, text }) => (
+                    <li key={title}>
+                      <strong>{title}</strong>
+                      <p>{text}</p>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            </div>
           </div>
         </section>
 
-        <section className="sp-section bg-dark text-light">
-          <div className="container">
-            <span className="section-top-title fade-up animate-on-scroll">Tecnología diamantada</span>
-            <h2 className="section-title fade-up animate-on-scroll delay-100">Por qué cortar con diamante</h2>
-            <ul className="sp-benefits">
-              {VENTAJAS.map(({ icon: Icon, title, text }, i) => (
-                <li key={title} className={`fade-up animate-on-scroll delay-${i + 1}00`}>
-                  <Icon className="sp-benefit-icon" aria-hidden="true" />
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="sp-section">
-          <div className="container">
-            <span className="section-top-title fade-up animate-on-scroll">Cómo trabajamos</span>
-            <h2 className="section-title fade-up animate-on-scroll delay-100">De la consulta al corte</h2>
-            <ol className="sp-steps">
-              {PASOS.map((paso, i) => (
-                <li key={paso.title} className={`fade-up animate-on-scroll delay-${i + 1}00`}>
-                  <h3>{paso.title}</h3>
+        <ContactForm
+          defaultServicio="Cortes H° A°"
+          intro={
+            <ol className="contact-steps">
+              {PASOS.map((paso) => (
+                <li key={paso.title}>
+                  <strong>{paso.title}</strong>
                   <p>{paso.text}</p>
                 </li>
               ))}
             </ol>
-          </div>
-        </section>
-
-        <ContactForm defaultServicio="Cortes H° A°" />
+          }
+        />
 
         <section id="faq" className="sp-section sp-faq-section">
           <div className="container text-center">
-            <span className="section-top-title fade-up animate-on-scroll">Preguntas frecuentes</span>
-            <h2 className="section-title fade-up animate-on-scroll delay-100">Sobre los cortes</h2>
+            <h2 className="section-title fade-up animate-on-scroll">Preguntas sobre los cortes</h2>
             <div className="fade-up animate-on-scroll delay-200">
               <FaqList items={FAQS} />
             </div>

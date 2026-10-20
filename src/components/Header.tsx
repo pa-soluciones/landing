@@ -1,17 +1,30 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
+import { isSnapLayout } from "@/lib/layout";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setIsOpen(false);
+      menuBtnRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [isOpen]);
 
   useEffect(() => {
     const heroEl = document.getElementById("inicio");
     const headerEl = document.getElementById("main-header");
     if (!heroEl) return;
-    const isMobile = () => window.innerWidth < 768;
+    const isMobile = () => !isSnapLayout();
 
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -46,6 +59,7 @@ export default function Header() {
           <a href="#nosotros">Nosotros</a>
         </div>
         <button
+          ref={menuBtnRef}
           className={`mobile-menu-btn${isOpen ? " is-open" : ""}`}
           onClick={() => setIsOpen(v => !v)}
           aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
@@ -57,7 +71,7 @@ export default function Header() {
           </span>
         </button>
         <a href="#contacto" className="btn-cta bg-primary header-cta" onClick={close}>
-          Contáctanos
+          Contactanos
         </a>
       </nav>
 
@@ -66,7 +80,7 @@ export default function Header() {
         <a href="#servicios" onClick={close}>Servicios</a>
         <a href="#proyectos" onClick={close}>Proyectos</a>
         <a href="#nosotros" onClick={close}>Nosotros</a>
-        <a href="#contacto" className="btn-cta bg-primary" onClick={close}>Contáctanos</a>
+        <a href="#contacto" className="btn-cta bg-primary" onClick={close}>Contactanos</a>
       </div>
     </header>
   );

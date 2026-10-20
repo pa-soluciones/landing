@@ -5,6 +5,7 @@ import AnchorIcon from "./icons/AnchorIcon";
 import CutIcon from "./icons/CutIcon";
 import Link from "next/link";
 import { CORTES_PATH } from "@/lib/schema";
+import { isSnapLayout } from "@/lib/layout";
 
 
 function JointIcon({ className }: { className?: string }) {
@@ -67,7 +68,7 @@ export default function Services() {
     const section = sectionRef.current;
     if (!wrapper || !section) return;
 
-    const isMobile = () => window.innerWidth < 768;
+    const isMobile = () => !isSnapLayout();
     let inView = false;
 
     function clearActive() {
@@ -118,32 +119,31 @@ export default function Services() {
     <section id="servicios" className="services-section bg-dark text-light" ref={sectionRef}>
       <div className="container">
         <div className="services-header">
-          <div>
-            <span className="section-top-title fade-up animate-on-scroll">Qué hacemos</span>
-            <h2 className="section-title fade-up animate-on-scroll delay-100">Servicios</h2>
-          </div>
+          <h2 className="section-title fade-up animate-on-scroll">Servicios</h2>
         </div>
 
         <div className="services-grid">
-          <div className="service-card fade-up animate-on-scroll delay-100">
+          <div className="service-card service-card--featured fade-up animate-on-scroll delay-100">
             <DrillIcon className="service-svg-icon" />
-            <h3>Perforaciones en Hormigón Armado</h3>
+            <h3>Perforaciones en hormigón armado</h3>
             <div className="service-hover-content">
               <p>
-                Especialistas en perforaciones de precisión para ductos, pases y refuerzos
-                estructurales. Garantizamos cortes limpios y exactos incluso en los materiales más
-                exigentes del mercado.
+                Perforaciones de precisión para ductos, pases y refuerzos estructurales, con
+                tecnología diamantada refrigerada por agua.
+              </p>
+              <p className="service-fact">
+                Una perforación estándar de 4&quot; en 20 cm de espesor lleva entre 15 y 40 minutos.
               </p>
             </div>
           </div>
 
-          <div className="service-card fade-up animate-on-scroll delay-200">
+          <div className="service-card service-card--featured fade-up animate-on-scroll delay-200">
             <CutIcon className="service-svg-icon" />
-            <h3>Cortes en Hormigón Armado</h3>
+            <h3>Cortes en hormigón armado</h3>
             <div className="service-hover-content">
-              <p>
-                Cortes con disco e hilo diamantado en losas, muros y vigas. Apertura de vanos, pases
-                rectangulares y demolición controlada.
+              <p>Cortes con disco e hilo diamantado en losas, muros, vigas y pavimentos.</p>
+              <p className="service-fact">
+                Apertura de vanos, pases rectangulares y demolición controlada.
               </p>
               <Link href={CORTES_PATH} className="service-link">
                 Ver tipos de corte →
@@ -151,9 +151,9 @@ export default function Services() {
             </div>
           </div>
 
-          <div className="service-card fade-up animate-on-scroll delay-300">
+          <div className="service-card service-card--compact fade-up animate-on-scroll delay-100">
             <JointIcon className="service-svg-icon" />
-            <h3>Sellado Técnico de Juntas de Dilatación</h3>
+            <h3>Sellado técnico de juntas de dilatación</h3>
             <div className="service-hover-content">
               <p>
                 Tratamiento elástico diseñado para absorber movimientos termo-mecánicos y evitar el
@@ -162,36 +162,32 @@ export default function Services() {
             </div>
           </div>
 
-          <div className="service-card fade-up animate-on-scroll delay-100">
+          <div className="service-card service-card--compact fade-up animate-on-scroll delay-200">
             <HoseIcon className="service-svg-icon" />
-            <h3>Bocas de Ataque - Servicio integral</h3>
+            <h3>Bocas de ataque: servicio integral</h3>
             <div className="service-hover-content">
               <p>
-                Nos encargamos del proceso completo para que su obra cumpla con las exigencias
+                Nos encargamos del proceso completo para que tu obra cumpla con las exigencias
                 reglamentarias. Perforación precisa, ejecución de recuadro y colocación de
                 ladrillos.
               </p>
             </div>
           </div>
 
-          <div className="service-card fade-up animate-on-scroll delay-200">
+          <div className="service-card service-card--compact fade-up animate-on-scroll delay-300">
             <AnchorIcon className="service-svg-icon" />
             <h3>
               <span className="text-default">Anclajes</span>
-              <span className="text-hover">Químicos y Mecánicos</span>
+              <span className="text-hover">Químicos y mecánicos</span>
             </h3>
             <div className="service-hover-content">
-              <p>
-                Realizamos instalaciones precisas de anclajes químicos y mecánicos, garantizando
-                máxima estabilidad y durabilidad en cada estructura, sin importar el tamaño del
-                desafío.
-              </p>
+              <p>Instalación de anclajes químicos y mecánicos en estructuras de hormigón armado.</p>
             </div>
           </div>
 
-          <div className="service-card fade-up animate-on-scroll delay-300">
+          <div className="service-card service-card--compact fade-up animate-on-scroll delay-400">
             <WorkersIcon className="service-svg-icon" />
-            <h3>Operación Técnica y Mano de Obra</h3>
+            <h3>Operación técnica y mano de obra</h3>
             <div className="service-hover-content">
               <p>
                 Operadores calificados para la ejecución de proyectos con maquinaria propia del

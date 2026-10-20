@@ -96,7 +96,7 @@ export function localBusinessSchema() {
             "@id": `${SITE_URL}/#service-anclajes`,
             name: "Anclajes Químicos y Mecánicos",
             description:
-              "Instalaciones precisas de anclajes garantizando máxima estabilidad y durabilidad estructural.",
+              "Instalación de anclajes químicos y mecánicos en estructuras de hormigón armado.",
             provider: { "@id": `${SITE_URL}/#business` },
           },
         },

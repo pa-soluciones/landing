@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { isSnapLayout } from "@/lib/layout";
 
 const SECTIONS = ["inicio", "servicios", "proyectos", "clientes", "nosotros", "contacto", "faq", "cierre"];
 
@@ -14,7 +15,7 @@ export function useScrollBehavior() {
 
     let currentSection = 0;
     let isScrolling = false;
-    const isMobile = () => window.innerWidth < 768;
+    const isMobile = () => !isSnapLayout();
 
     function getDots() {
       return Array.from(document.querySelectorAll<HTMLElement>(".dot"));
@@ -37,14 +38,18 @@ export function useScrollBehavior() {
       dotNav.classList.toggle("light-mode", lightSections.includes(sectionId));
     }
 
-    function scrollToSection(idx: number) {
+    function scrollToSection(idx: number, fromBelow = false) {
       if (isMobile()) return;
       if (idx < 0 || idx >= SECTIONS.length) return;
       const sectionEl = document.getElementById(SECTIONS[idx]);
       if (!sectionEl) return;
 
+      // Coming back up into a section taller than the viewport lands on its last screen.
+      const top = fromBelow
+        ? Math.max(sectionEl.offsetTop, sectionEl.offsetTop + sectionEl.offsetHeight - wrapper!.clientHeight)
+        : sectionEl.offsetTop;
       isScrolling = true;
-      wrapper!.scrollTo({ top: sectionEl.offsetTop, behavior: "smooth" });
+      wrapper!.scrollTo({ top, behavior: "smooth" });
       currentSection = idx;
 
       const dots = getDots();
@@ -59,6 +64,30 @@ export function useScrollBehavior() {
       setTimeout(() => { isScrolling = false; }, 800);
     }
 
+    // A section taller than the viewport scrolls through its own content before snapping on.
+    function scrollWithin(dir: 1 | -1) {
+      const sectionEl = document.getElementById(SECTIONS[currentSection]);
+      if (!sectionEl) return false;
+      const view = wrapper!.clientHeight;
+      const pos = wrapper!.scrollTop;
+      const start = sectionEl.offsetTop;
+      const end = sectionEl.offsetTop + sectionEl.offsetHeight - view;
+      let target: number | null = null;
+      if (dir > 0 && pos < end - 1) target = Math.min(end, pos + view * 0.8);
+      if (dir < 0 && pos > start + 1) target = Math.max(start, pos - view * 0.8);
+      if (target === null) return false;
+      isScrolling = true;
+      wrapper!.scrollTo({ top: target, behavior: "smooth" });
+      setTimeout(() => { isScrolling = false; }, 800);
+      return true;
+    }
+
+    function step(dir: 1 | -1) {
+      if (scrollWithin(dir)) return;
+      if (dir > 0 && currentSection < SECTIONS.length - 1) scrollToSection(currentSection + 1);
+      else if (dir < 0 && currentSection > 0) scrollToSection(currentSection - 1, true);
+    }
+
     // Intercept ALL anchor clicks → use custom scroll on desktop
     function handleAnchorClick(e: MouseEvent) {
       const anchor = (e.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null;
@@ -70,8 +99,7 @@ export function useScrollBehavior() {
       e.preventDefault();
       if (isMobile()) {
         // Mobile: manual scroll inside the overflow-y: auto wrapper
-        const sectionEl = document.getElementById(sectionId);
-        if (sectionEl) wrapper!.scrollTo({ top: sectionEl.offsetTop, behavior: "smooth" });
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
       scrollToSection(idx);
@@ -80,9 +108,9 @@ export function useScrollBehavior() {
     // Wheel — desktop only
     function onWheel(e: WheelEvent) {
       if (isMobile()) return;
-      // Don't intercept wheel inside the carousel
+      // Horizontal wheel over the carousel belongs to it; vertical wheel still moves the page
       const carousel = (e.target as HTMLElement).closest(".carousel-track-container");
-      if (carousel) return;
+      if (carousel && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
       // On short viewports the FAQ list scrolls internally; only take over at its edges
       const faq = (e.target as HTMLElement).closest<HTMLElement>(".faq-section");
       if (faq && faq.scrollHeight > faq.clientHeight) {
@@ -92,11 +120,7 @@ export function useScrollBehavior() {
       }
       e.preventDefault();
       if (isScrolling) return;
-      if (e.deltaY > 0 && currentSection < SECTIONS.length - 1) {
-        scrollToSection(currentSection + 1);
-      } else if (e.deltaY < 0 && currentSection > 0) {
-        scrollToSection(currentSection - 1);
-      }
+      if (e.deltaY !== 0) step(e.deltaY > 0 ? 1 : -1);
     }
 
     // Touch — desktop only (tablet landscape)
@@ -107,9 +131,8 @@ export function useScrollBehavior() {
     function onTouchEnd(e: TouchEvent) {
       if (isMobile()) return;
       const diff = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(diff) < 50) return;
-      if (diff > 0 && currentSection < SECTIONS.length - 1) scrollToSection(currentSection + 1);
-      else if (diff < 0 && currentSection > 0) scrollToSection(currentSection - 1);
+      if (Math.abs(diff) < 50 || isScrolling) return;
+      step(diff > 0 ? 1 : -1);
     }
 
     function onKeyDown(e: KeyboardEvent) {
@@ -117,9 +140,11 @@ export function useScrollBehavior() {
       if (isScrolling) return;
       if ((e.target as HTMLElement).closest("input, textarea, select")) return;
       if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-        if (currentSection < SECTIONS.length - 1) { e.preventDefault(); scrollToSection(currentSection + 1); }
+        e.preventDefault();
+        step(1);
       } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        if (currentSection > 0) { e.preventDefault(); scrollToSection(currentSection - 1); }
+        e.preventDefault();
+        step(-1);
       }
     }
 

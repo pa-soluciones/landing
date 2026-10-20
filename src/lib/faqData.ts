@@ -17,7 +17,7 @@ export const faqData = [
   {
     question: "¿Qué tecnología utilizan para perforar?",
     answer:
-      "Usamos tecnología diamantada refrigerada por agua, que garantiza cortes limpios, sin vibración excesiva y sin dañar las armaduras ni la estructura circundante. Es el método más preciso y seguro del mercado.",
+      "Usamos tecnología diamantada refrigerada por agua, que garantiza cortes limpios, sin vibración excesiva y sin dañar las armaduras ni la estructura circundante.",
   },
   {
     question: "¿Trabajan en obras residenciales y empresariales?",
