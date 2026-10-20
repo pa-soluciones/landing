@@ -10,8 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# testing & linting
 /coverage
+.eslintcache
 
 # next.js
 /.next/
