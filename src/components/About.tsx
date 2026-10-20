@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ShieldCheck, HardHat } from "lucide-react";
 
 export default function About() {
   return (
@@ -33,30 +32,25 @@ export default function About() {
           </div>
         </div>
         <div className="about-content">
-          <span className="section-top-title fade-up animate-on-scroll">Trayectoria y Solidez</span>
           <h2 className="section-title fade-up animate-on-scroll delay-100">Nosotros</h2>
           <p className="about-slogan fade-up animate-on-scroll delay-150">
             Soluciones que <span className="text-primary">sostienen</span> estructuras
           </p>
           <p className="fade-up animate-on-scroll delay-200">
-            En PAS (Piedra Angular Solutions) nos dedicamos a brindar soporte estructural de alta
-            calidad, garantizando la solidez de cada proyecto mediante técnicas avanzadas y
-            profesionalismo.
+            En PAS (Piedra Angular Solutions) hacemos perforaciones, cortes, anclajes, sellado de
+            juntas y bocas de ataque en hormigón armado.
           </p>
           <p className="fade-up animate-on-scroll delay-300">
-            Entendemos que la base de toda construcción es la confianza. Por eso, nuestro equipo de
-            especialistas trabaja bajo los más estrictos estándares de seguridad y eficiencia
-            operativa, adaptándonos a los desafíos más complejos de la arquitectura moderna en todo
-            Buenos Aires y Ciudad Capital.
+            Entendemos que la base de toda construcción es la confianza. Por eso definimos el método
+            de cada trabajo en una visita técnica previa y trabajamos con tecnología diamantada
+            refrigerada por agua, en CABA y Gran Buenos Aires.
           </p>
           <div className="features-grid fade-up animate-on-scroll delay-400">
             <div className="feature-item">
-              <ShieldCheck color="var(--primary)" size={24} />
-              <span>Calidad Garantizada</span>
+              <span>Visita técnica sin cargo</span>
             </div>
             <div className="feature-item">
-              <HardHat color="var(--primary)" size={24} />
-              <span>Técnicos Expertos</span>
+              <span>Presupuesto sin compromiso</span>
             </div>
           </div>
         </div>
