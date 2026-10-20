@@ -6,6 +6,7 @@ const PARTNERS: Partner[] = [
   { name: "AVN Nordelta", src: "/partners/avn-nordelta.svg", ratio: 174.1 / 45.4, url: "https://www.avnordelta.com/" },
   { name: "Tosud", src: "/partners/tosud.svg", ratio: 193 / 41, url: "https://tosudconstructora.com.ar/" },
   { name: "Fleet Group", src: "/partners/fleet-group.png", ratio: 470 / 177, url: "https://www.fleetsa.com.ar/" },
+  { name: "NIC Developers", src: "/partners/NIClogo.png", ratio: 263 / 120, url: "https://www.nicdevelopers.com/" },
 ];
 
 const GROUP = Array.from({ length: Math.max(2, Math.ceil(10 / PARTNERS.length)) }, () => PARTNERS).flat();
@@ -47,7 +48,6 @@ export default function Partners() {
   return (
     <section id="clientes" className="partners-section">
       <div className="container text-center">
-        <span className="section-top-title fade-up animate-on-scroll">Confían en nosotros</span>
         <h2 className="section-title fade-up animate-on-scroll delay-100">Clientes</h2>
         <p className="partners-desc fade-up animate-on-scroll delay-200">
           <strong>Empresas y estudios</strong> que nos eligieron para sus obras en{" "}

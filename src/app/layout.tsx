@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | PAS Piedra Angular Solutions",
   },
   description:
-    "Especialistas en perforaciones y cortes de hormigón armado en Buenos Aires y CABA. Tecnología diamantada refrigerada por agua. Anclajes, bocas de ataque y sellado de juntas. Cotizamos sin cargo en 24hs.",
+    "Especialistas en perforaciones y cortes de hormigón armado en Buenos Aires y CABA. Tecnología diamantada refrigerada por agua. Anclajes, bocas de ataque y sellado de juntas. Visita técnica y presupuesto sin cargo.",
   keywords: [
     "Perforaciones en hormigón armado",
     "sellado de juntas",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "PAS Piedra Angular Solutions",
     title: "PAS | Perforaciones y Cortes en Hormigón Armado",
     description:
-      "Especialistas en perforaciones, cortes y anclajes en hormigón armado en Buenos Aires y CABA. Precisión, tecnología diamantada y resultados profesionales.",
+      "Especialistas en perforaciones, cortes y anclajes en hormigón armado en Buenos Aires y CABA. Tecnología diamantada refrigerada por agua. Visita técnica y presupuesto sin cargo.",
     images: [
       {
         url: "/opengraph.png",

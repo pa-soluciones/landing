@@ -2,7 +2,7 @@
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 const images = [
   { src: "/work-images/perforaciones-anclajes-mecanicos.webp", alt: "Obra de anclajes mecánicos" },
@@ -22,6 +22,14 @@ const images = [
 
 const SCALE = 2.5;
 
+// Pan offset (in pre-scale units) that keeps a zoomed edge from leaving the screen.
+function clampPan(t: number, start: number, size: number, origin: number, view: number) {
+  const edge = start + origin * (1 - SCALE); // near edge of the zoomed image when t = 0
+  const a = (view - size * SCALE - edge) / SCALE;
+  const b = -edge / SCALE;
+  return Math.min(Math.max(a, b), Math.max(Math.min(a, b), t));
+}
+
 export default function Portfolio() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -29,29 +37,52 @@ export default function Portfolio() {
     containScroll: "trimSnaps",
   });
 
-  const [modalSrc, setModalSrc] = useState<string | null>(null);
+  const [modal, setModal] = useState<{ src: string; alt: string } | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
   const [zoomed, setZoomed] = useState(false);
   const [origin, setOrigin] = useState({ x: 50, y: 50 });
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef({ startX: 0, startY: 0, startTx: 0, startTy: 0, moved: false });
-  const touchRef = useRef({ startX: 0, startY: 0, startTx: 0, startTy: 0 });
+  const touchRef = useRef({ startX: 0, startY: 0, startTx: 0, startTy: 0, moved: false });
+  const baseRectRef = useRef<DOMRect | null>(null);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
-  function openModal(src: string) {
-    setModalSrc(src);
+  function openModal(src: string, alt: string) {
+    openerRef.current = document.activeElement as HTMLElement | null;
+    setModal({ src, alt });
     setZoomed(false);
     setTranslate({ x: 0, y: 0 });
     setOrigin({ x: 50, y: 50 });
   }
 
   function closeModal() {
-    setModalSrc(null);
+    setModal(null);
     setZoomed(false);
     setTranslate({ x: 0, y: 0 });
   }
+
+  useEffect(() => {
+    if (!modal) return;
+    closeBtnRef.current?.focus();
+    const opener = openerRef.current;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeModal();
+      // The close button is the only control in the dialog, so Tab stays on it.
+      if (e.key === "Tab") {
+        e.preventDefault();
+        closeBtnRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      opener?.focus();
+    };
+  }, [modal]);
 
   function handleImageClick(e: React.MouseEvent<HTMLImageElement>) {
     e.stopPropagation();
@@ -61,6 +92,8 @@ export default function Portfolio() {
 
   function handleImageTap(e: React.TouchEvent<HTMLImageElement>) {
     e.preventDefault(); // blocks the synthetic click that fires after touchend
+    // A drag ends here too: it pans (or swipes to close), it must not toggle the zoom.
+    if (touchRef.current.moved) return;
     e.stopPropagation();
     if (e.changedTouches.length !== 1) return;
     const t = e.changedTouches[0];
@@ -73,6 +106,7 @@ export default function Portfolio() {
       setTranslate({ x: 0, y: 0 });
       return;
     }
+    baseRectRef.current = rect;
     const ox = ((clientX - rect.left) / rect.width) * 100;
     const oy = ((clientY - rect.top) / rect.height) * 100;
     setOrigin({ x: ox, y: oy });
@@ -98,10 +132,7 @@ export default function Portfolio() {
     const dx = e.clientX - dragRef.current.startX;
     const dy = e.clientY - dragRef.current.startY;
     if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragRef.current.moved = true;
-    setTranslate({
-      x: dragRef.current.startTx + dx / SCALE,
-      y: dragRef.current.startTy + dy / SCALE,
-    });
+    pan(dragRef.current.startTx + dx / SCALE, dragRef.current.startTy + dy / SCALE);
   }
 
   function handleMouseUp() {
@@ -110,16 +141,27 @@ export default function Portfolio() {
 
   function handleTouchStart(e: React.TouchEvent) {
     const t = e.touches[0];
-    touchRef.current = { startX: t.clientX, startY: t.clientY, startTx: translate.x, startTy: translate.y };
+    touchRef.current = { startX: t.clientX, startY: t.clientY, startTx: translate.x, startTy: translate.y, moved: false };
   }
 
   function handleTouchMove(e: React.TouchEvent) {
-    if (!zoomed) return;
-    e.stopPropagation();
     const t = e.touches[0];
     const dx = t.clientX - touchRef.current.startX;
     const dy = t.clientY - touchRef.current.startY;
-    setTranslate({ x: touchRef.current.startTx + dx / SCALE, y: touchRef.current.startTy + dy / SCALE });
+    if (Math.abs(dx) > 8 || Math.abs(dy) > 8) touchRef.current.moved = true;
+    if (!zoomed) return;
+    e.stopPropagation();
+    pan(touchRef.current.startTx + dx / SCALE, touchRef.current.startTy + dy / SCALE);
+  }
+
+  // Keeps the zoomed image covering the screen instead of sliding off into the black.
+  function pan(tx: number, ty: number) {
+    const r = baseRectRef.current;
+    if (!r) return setTranslate({ x: tx, y: ty });
+    setTranslate({
+      x: clampPan(tx, r.left, r.width, (origin.x / 100) * r.width, window.innerWidth),
+      y: clampPan(ty, r.top, r.height, (origin.y / 100) * r.height, window.innerHeight),
+    });
   }
 
   function handleTouchEnd(e: React.TouchEvent) {
@@ -141,10 +183,12 @@ export default function Portfolio() {
           <div className="carousel-track-container" ref={emblaRef}>
             <div style={{ display: "flex" }}>
               {images.map((img) => (
-                <div
+                <button
+                  type="button"
                   key={img.src}
                   className="portfolio-item"
-                  onClick={() => openModal(img.src)}
+                  onClick={() => openModal(img.src, img.alt)}
+                  aria-label={`Ampliar imagen: ${img.alt}`}
                 >
                   <Image
                     src={img.src}
@@ -154,10 +198,10 @@ export default function Portfolio() {
                     loading="lazy"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
-                  <div className="overlay">
+                  <div className="overlay" aria-hidden="true">
                     <span>Ver imagen</span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -172,11 +216,25 @@ export default function Portfolio() {
         </div>
       </div>
 
-      {modalSrc && (
-        <div className="image-modal show" onClick={closeModal}>
-          <button className="close-modal" onClick={closeModal} aria-label="Cerrar imagen">
+      {modal && (
+        <div
+          className="image-modal show"
+          onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Imagen ampliada: ${modal.alt}`}
+        >
+          <button ref={closeBtnRef} className="close-modal" onClick={closeModal} aria-label="Cerrar imagen">
             &times;
           </button>
+          <p className="modal-hint" aria-hidden="true">
+            <span className="hint-touch">
+              {zoomed ? "Arrastrá para moverte · tocá para alejar" : "Tocá la imagen para ampliar"}
+            </span>
+            <span className="hint-mouse">
+              {zoomed ? "Arrastrá para moverte · hacé clic para alejar" : "Hacé clic en la imagen para ampliar"}
+            </span>
+          </p>
           <div
             className="modal-content-wrapper"
             onMouseMove={handleMouseMove}
@@ -187,8 +245,8 @@ export default function Portfolio() {
             onTouchEnd={handleTouchEnd}
           >
             <img
-              src={modalSrc}
-              alt="Vista completa"
+              src={modal.src}
+              alt={modal.alt}
               id="modal-image"
               className={zoomed ? "zoomed" : ""}
               onClick={handleImageClick}

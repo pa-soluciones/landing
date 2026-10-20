@@ -115,17 +115,17 @@ export default function PoliticaDePrivacidad() {
       <p>Podemos compartir datos personales con:</p>
       <ul>
         <li>
-          <strong>WhatsApp / Meta Platforms, Inc.</strong> — al usar el formulario o el botón de
+          <strong>WhatsApp / Meta Platforms, Inc.</strong>: al usar el formulario o el botón de
           WhatsApp, el mensaje se transmite y almacena en la infraestructura de ese servicio, sujeto
           a sus propias políticas.
         </li>
         <li>
-          <strong>Google LLC</strong> — Google Tag Manager y las etiquetas de medición configuradas
+          <strong>Google LLC</strong>: Google Tag Manager y las etiquetas de medición configuradas
           en él, para la analítica del sitio.
         </li>
         <li>
-          <strong>Contentsquare SA</strong> — análisis de experiencia de uso: mapas de calor y
-          métricas de interacción agregadas.
+          <strong>Contentsquare SA</strong>: análisis de experiencia de uso (mapas de calor y
+          métricas de interacción agregadas).
         </li>
         <li>
           <strong>Proveedores de alojamiento web y de correo electrónico</strong>, que actúan como
